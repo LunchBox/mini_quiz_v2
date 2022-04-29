@@ -1,10 +1,75 @@
-<p style="color: green"><%= notice %></p>
+<%= link_to "Back to Quiz", @attempt.quiz %>
 
-<%= render @attempt %>
+<p id="notice"><%= notice %></p>
 
-<div>
-  <%= link_to "Edit this attempt", edit_attempt_path(@attempt) %> |
-  <%= link_to "Back to attempts", attempts_path %>
+<h1><%= @attempt.quiz %></h1>
 
-  <%= button_to "Destroy this attempt", @attempt, method: :delete %>
-</div>
+
+<table>
+  <tr>
+    <th>School</th>
+    <td><%= @attempt.school %></td>
+  </tr>
+  <tr>
+    <th>Name</th>
+    <td><%= @attempt.name %></td>
+  </tr>
+  <tr>
+    <th>mobile</th>
+    <td><%= @attempt.mobile %></td>
+  </tr>
+  <tr>
+    <th>email</th>
+    <td><%= @attempt.email %></td>
+  </tr>
+  <tr>
+    <th>Start At</th>
+    <td><%= @attempt.start_at.strftime("%Y-%m-%d %H:%M:%S") if @attempt.start_at %></td>
+  </tr>
+  <tr>
+    <th>End At</th>
+    <td><%= @attempt.end_at.strftime("%Y-%m-%d %H:%M:%S") if @attempt.end_at %></td>
+  </tr>
+  
+  <% if @attempt.start_at and @attempt.end_at %>
+    <tr>
+      <th>Duration</th>
+      <td><%= @attempt.formatted_diff %></td>
+    </tr>
+  <% end %>
+  
+  <tr>
+    <th>Result</th>
+    <td><%= @attempt.formatted_score %></td>
+  </tr>
+</table>
+
+
+
+
+<% @attempt.attempt_answers.each_with_index do |aa, idx| %>
+    <% question = aa.question %>
+    
+    <div class="question">
+      <h3>
+        <%= idx + 1 %>.
+        <%= question.subject %>
+      </h3>
+      <div style="font-size: smaller; color: #999;">
+        score: <%= aa.calc_score(question.correct_options, @attempt.quiz.calc_type, question.score).to_f %> out of <%= question.score %>; 
+        <%= question.fixed_options ? "fixed options (no shuffle)" : "" %>        
+      </div>
+      <div>
+        <%= simple_format question.desc %>
+      </div>
+      
+      <% question.question_options.each_with_index do |qo, jdx| %>
+          <div>
+              <%= check_box_tag :attempt_answer, :selected_options, aa.selected_options.try(:"include?", qo.id.to_s), disabled: true %>
+              <span style="font-family: monospace;"><%= "ABCDEFGHIJK"[jdx] %>.</span>
+              <%= qo.content %>
+              <%= '✔' if aa.question.correct_options.try(:"include?", qo.id.to_s) %>
+          </div>
+      <% end %>
+    </div>
+<% end %>

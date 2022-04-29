@@ -1,0 +1,14 @@
+<p style="color: green"><%= notice %></p>
+
+<h1>Attempt answers</h1>
+
+<div id="attempt_answers">
+  <% @attempt_answers.each do |attempt_answer| %>
+    <%= render attempt_answer %>
+    <p>
+      <%= link_to "Show this attempt answer", attempt_answer %>
+    </p>
+  <% end %>
+</div>
+
+<%= link_to "New attempt answer", new_attempt_answer_path %>

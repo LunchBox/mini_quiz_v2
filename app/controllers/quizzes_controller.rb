@@ -49,6 +49,16 @@ class QuizzesController < ApplicationController
     end
   end
 
+  def clone
+    target = Quiz.find params[:id]
+    @quiz = target.deep_clone!
+
+    respond_to do |format|
+      format.html { redirect_to [:edit, @quiz], notice: 'Quiz was successfully cloned.' }
+    end
+  end
+
+
   # DELETE /quizzes/1 or /quizzes/1.json
   def destroy
     @quiz.destroy
