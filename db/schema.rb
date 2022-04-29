@@ -10,7 +10,67 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_04_29_074343) do
+ActiveRecord::Schema.define(version: 2022_04_29_102948) do
+
+  create_table "attempts", force: :cascade do |t|
+    t.integer "quiz_id", null: false
+    t.string "name"
+    t.datetime "start_at", precision: 6
+    t.datetime "end_at", precision: 6
+    t.float "score", default: 0.0
+    t.string "auth_code"
+    t.string "school"
+    t.string "email"
+    t.string "mobile"
+    t.float "time_diff"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["quiz_id"], name: "index_attempts_on_quiz_id"
+  end
+
+  create_table "question_options", force: :cascade do |t|
+    t.integer "question_id", null: false
+    t.string "content"
+    t.string "image_file_name"
+    t.string "image_content_type"
+    t.integer "image_file_size"
+    t.datetime "image_updated_at", precision: 6
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["question_id"], name: "index_question_options_on_question_id"
+  end
+
+  create_table "questions", force: :cascade do |t|
+    t.integer "quiz_id", null: false
+    t.integer "user_id", null: false
+    t.string "subject"
+    t.text "desc"
+    t.string "correct_options"
+    t.integer "score", default: 0
+    t.string "image_file_name"
+    t.string "image_content_type"
+    t.integer "image_file_size"
+    t.datetime "image_updated_at", precision: 6
+    t.boolean "fixed_options", default: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["quiz_id"], name: "index_questions_on_quiz_id"
+    t.index ["user_id"], name: "index_questions_on_user_id"
+  end
+
+  create_table "quizzes", force: :cascade do |t|
+    t.string "title"
+    t.text "desc"
+    t.text "pre_notice"
+    t.boolean "available", default: false
+    t.boolean "random_questions", default: false
+    t.boolean "random_options", default: false
+    t.string "calc_type"
+    t.integer "user_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["user_id"], name: "index_quizzes_on_user_id"
+  end
 
   create_table "users", force: :cascade do |t|
     t.string "email", default: "", null: false
@@ -24,4 +84,9 @@ ActiveRecord::Schema.define(version: 2022_04_29_074343) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  add_foreign_key "attempts", "quizzes"
+  add_foreign_key "question_options", "questions"
+  add_foreign_key "questions", "quizzes"
+  add_foreign_key "questions", "users"
+  add_foreign_key "quizzes", "users"
 end

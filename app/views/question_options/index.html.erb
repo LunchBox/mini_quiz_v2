@@ -1,0 +1,14 @@
+<p style="color: green"><%= notice %></p>
+
+<h1>Question options</h1>
+
+<div id="question_options">
+  <% @question_options.each do |question_option| %>
+    <%= render question_option %>
+    <p>
+      <%= link_to "Show this question option", question_option %>
+    </p>
+  <% end %>
+</div>
+
+<%= link_to "New question option", new_question_option_path %>

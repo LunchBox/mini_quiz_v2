@@ -1,0 +1,76 @@
+<p style="color: green"><%= notice %></p>
+
+<h1>
+    <%= @quiz %>
+    [<%= @quiz.available? ? "Available" : "Unavailable" %>]
+</h1>
+
+<div class="btn-group">
+    <%= link_to 'Edit', edit_quiz_path(@quiz), class: "btn btn-default" %>
+    <%= link_to 'Clone', [:clone, @quiz], method: :post, data: {confirm: "Are you sure?"}, class: "btn btn-default" %>
+</div>
+
+<table>
+    <tr>
+        <th>Score Calculation Type:</th>
+        <td><%= @quiz.calc_type.blank? ? "full_match" : @quiz.calc_type %></td>
+    </tr>
+    <tr>
+        <th>Desc:</th>
+        <td><%= simple_format @quiz.desc %></td>
+    </tr>
+    <tr>
+        <th>Pre Notice:</th>
+        <td><%= simple_format @quiz.pre_notice %></td>
+    </tr>
+    <tr>
+        <th>Random Questions:</th>
+        <td><%= @quiz.random_questions %></td>
+    </tr>
+    <tr>
+        <th>Random Options:</th>
+        <td><%= @quiz.random_options %></td>
+    </tr>
+    <tr>
+        <th>Available: </th>
+        <td><%= @quiz.available %></td>
+    </tr>
+</table>
+
+<h2>Questions (<%= @quiz.questions.size %>)</h2>
+
+<div class="btn-group">
+    <%= link_to '+ Question', [:new, @quiz, :question], class: "btn btn-default" %>
+</div>
+
+<table>
+    <tr>
+        <th></th>
+        <th>Question Name</th>
+        <th>Options</th>
+        <th>Correct</th>
+        <th>Score</th>
+        <th></th>
+        <th></th>
+    </tr>
+    <% @quiz.questions.each_with_index do |question, idx| %>
+        <tr>
+            <td><%= idx + 1 %></td>
+            <td><%= link_to question %></td>
+            <td><%= question.question_options.size %></td>
+            <td><%= question.correct_options.try :size %></td>
+            <td><%= question.score %></td>
+            <td><%= link_to 'Edit', [:edit, question] %></td>
+            <td><%= link_to 'Destroy', question, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        </tr>
+    <% end %>
+</table>
+
+
+<h2>Attempts (<%= @quiz.attempts.size %>)</h2>
+
+<div class="btn-group">
+<%= link_to 'Attempt Quiz', [:new, @quiz, :attempt], class: "btn btn-default"  %>
+</div>
+
+<%= render 'attempts/index', attempts: Attempt.rank(@quiz.attempts) %>

@@ -1,7 +1,32 @@
 Rails.application.routes.draw do
+	resources :attempt_answers
+
+  resources :attempts do
+    collection do
+      get :notice
+      get :unavailable
+    end
+    resources :attempt_answers
+  end
+
+  resources :question_options
+
+  resources :questions do
+    resources :question_options
+  end
+
+  resources :quizzes do
+    member do
+      post :clone
+    end
+    resources :questions
+    resources :attempts
+  end
+
   devise_for :users
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
   # Defines the root path route ("/")
   # root "articles#index"
+  root "quizzes#index"
 end
