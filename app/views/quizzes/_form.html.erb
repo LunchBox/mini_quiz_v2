@@ -5,15 +5,15 @@
   <%= f.input :title %>
   <%= f.input :desc %>
   <%= f.input :pre_notice %>
-  <%= f.input :calc_type, collection: Quiz::CALC_TYPES, label: "Score Calc Type" %>
+  <%= f.input :calc_type, collection: Quiz::CALC_TYPES %>
   <%= f.input :random_questions %>
   <%= f.input :random_options %>
   <%= f.input :available %>
 
 
   <div class="ingredient__actions">
-    <%= link_to "Cancel",  :quizzes, class: "btn btn--light" %>
     <%= f.submit class: "btn btn--secondary" %>
+    <%= link_to t("Cancel"),  :quizzes, class: "btn btn--light" %>
   </div>
 
 <% end %>

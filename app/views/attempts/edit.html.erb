@@ -1,10 +1,5 @@
-<h1>Editing attempt</h1>
+<%= render 'quizzes/header', quiz: @quiz %>
 
-<%= render "form", attempt: @attempt %>
+Participant: <%= @attempt.school %> / <%= @attempt.name %> <br/>
 
-<br>
-
-<div>
-  <%= link_to "Show this attempt", @attempt %> |
-  <%= link_to "Back to attempts", attempts_path %>
-</div>
+<%= render 'form' %>

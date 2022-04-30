@@ -2,6 +2,8 @@ class AttemptsController < ApplicationController
   before_action :set_attempt, only: %i[ show edit update destroy ]
 	skip_before_action :authenticate_user!, only: [:new, :create, :edit, :update, :notice, :unavailable]
 
+  layout "blank", except: [:index, :destroy]
+
   # GET /attempts or /attempts.json
   def index
 		@quiz = Quiz.find params[:quiz_id]
