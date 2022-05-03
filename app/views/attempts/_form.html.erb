@@ -1,66 +1,68 @@
 
 <%= simple_form_for([@quiz, @attempt]) do |f| %>
-	<%= f.error_notification %>
-	<%= f.error_notification message: f.object.errors[:base].to_sentence if f.object.errors[:base].present? %>
+  <%= f.error_notification %>
+  <%= f.error_notification message: f.object.errors[:base].to_sentence if f.object.errors[:base].present? %>
 
-	<div class="form-inputs">
+  <div class="form-inputs">
 
-	</div>
+  </div>
 
-	<% if @attempt.new_record? %>
-		<%= f.input :school, label: "學校 School" %>
-		<%= f.input :name, label: "姓名 Name" %>
-		<%= f.input :mobile, label: "電話號碼 Mobile" %>
-		<%= f.input :email, label: "電郵地址 Email" %>
-		<div class="actions">
-			<%= f.submit "開始 Start", class: "btn btn-primary" %>
-		</div>
-	<% else %>
-		<div class="questions" id="question-list">
-			<% idx = 0 %>
-			<% attempt_answers = @quiz.random_questions ? @attempt.attempt_answers.shuffle : @attempt.attempt_answers %>
-			<%= f.simple_fields_for :attempt_answers, attempt_answers, wrapper:false do |aaf| %>
-				<% question = aaf.object.question %>
-				<div class="question">
-					<h3 class="content">
-						<%= idx += 1 %>.
-						<%= question.subject %>
-					</h3>
-					<div>
-						<%= simple_format question.desc %>
-						<% if question.image? %>
-							<div style="margin-left: 4rem;">
-								<%= image_tag question.image.url, style: "max-width: 100%;" %>
-							</div>
-						<% end %>
-					</div>
+  <% if @attempt.new_record? %>
+    <%= f.input :school, label: "學校 School" %>
+    <%= f.input :name, label: "姓名 Name" %>
+    <%= f.input :mobile, label: "電話號碼 Mobile" %>
+    <%= f.input :email, label: "電郵地址 Email" %>
+    <div class="actions">
+      <%= f.submit "開始 Start", class: "btn btn-primary" %>
+    </div>
+  <% else %>
+    <div class="questions" id="question-list">
+      <% idx = 0 %>
+      <% attempt_answers = @quiz.random_questions ? @attempt.attempt_answers.shuffle : @attempt.attempt_answers %>
+      <%= f.simple_fields_for :attempt_answers, attempt_answers, wrapper:false do |aaf| %>
+        <% question = aaf.object.question %>
+        <div class="question">
+          <h3 class="content">
+            <%= idx += 1 %>.
+            <%= question.subject %>
+          </h3>
+          <div>
+            <%= simple_format question.desc %>
+            <% if question.image? %>
+              <div style="margin-left: 4rem;">
+                <%= image_tag question.image.url, style: "max-width: 100%;" %>
+              </div>
+            <% end %>
+          </div>
 
-					<% options = (@quiz.random_options and !question.fixed_options) ? question.question_options.shuffle : question.question_options %>
-					<% options.each_with_index do |qo, idx| %>
-						<div style="overflow: hidden; padding-left: 3rem;">
-							<span style="float: left; margin-right: 1rem;">
-								<%= aaf.check_box :selected_options, {:multiple => true}, qo.id.to_s, nil %>
-							</span>
-							<span style="font-family: monospace;"><%= "ABCDEFGHIJK"[idx] %>.</span>
-							<%= qo.content %>
+          <% options = (@quiz.random_options and !question.fixed_options) ? question.question_options.shuffle : question.question_options %>
+          <% options.each_with_index do |qo, idx| %>
+            <div style="overflow: hidden; padding-left: 3rem;">
+              <label>
+                <span style="float: left; margin-right: 1rem;">
+                  <%= aaf.check_box :selected_options, {:multiple => true}, qo.id.to_s, nil %>
+                </span>
+                <span style="font-family: monospace;"><%= "ABCDEFGHIJK"[idx] %>.</span>
+                <%= qo.content %>
 
-							<% if qo.image? %>
-								<div style="margin-left: 4rem;">
-									<%= image_tag qo.image.url, style: "max-width: 100%;" %>
-								</div>
-							<% end %>
-						</div>
-					<% end %>
-					<%= aaf.hidden_field :question_id %>
-				</div>
-			<% end %>
-		</div>
+                <% if qo.image? %>
+                  <div style="margin-left: 4rem;">
+                    <%= image_tag qo.image.url, style: "max-width: 100%;" %>
+                  </div>
+                <% end %>
+              </label>
+            </div>
+          <% end %>
+          <%= aaf.hidden_field :question_id %>
+        </div>
+      <% end %>
+    </div>
 
-		<div class="actions" style="text-align: right;">
-			<%= hidden_field_tag :auth_code, params[:auth_code] %>
-			<%= f.submit "提交所有答案 Submit", class: "btn btn-primary", data: { confirm: '提交答案後無法再修改，確定提交所有答案嗎？' } %>
-		</div>
-	<% end %>
+    <div class="actions">
+      <%= hidden_field_tag :auth_code, params[:auth_code] %>
+      <%= f.submit "提交所有答案 Submit", class: "btn btn-primary", data: { confirm: '提交答案後無法再修改，確定提交所有答案嗎？' } %>
+    </div>
+  <% end %>
 
 
 
@@ -68,14 +70,14 @@
 
 
 <script>
-	jQuery(document).ready(function($){
+  jQuery(document).ready(function($){
 
-		$('#question-list').paginathing({
-			perPage: 10,
-			limitPagination: false,
-			containerClass: 'panel-footer'
-		})
-	});
+    $('#question-list').paginathing({
+      perPage: 10,
+      limitPagination: false,
+      containerClass: 'panel-footer'
+    })
+  });
 </script>
 
 
