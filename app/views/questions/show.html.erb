@@ -1,4 +1,5 @@
-<%= link_to "Back to Quiz", @question.quiz %>
+<%= link_to "Back to Quiz", @question.quiz %> &middot;
+<%= link_to "Add New Question", [:new, @question.quiz, :question], class: "btn btn-default" %>
 
 <p id="notice"><%= notice %></p>
 
@@ -40,9 +41,6 @@
   <div class="actions">
     <%= f.submit "Update Correct Options", class: "btn btn-default" %>
 
-    <% unless @question.correct_options.blank? %>
-      <%= link_to "Add New Question", [:new, @question.quiz, :question], class: "btn btn-default" %>
-    <% end %>
   </div>
 <% end %>
 
