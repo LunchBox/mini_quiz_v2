@@ -10,6 +10,9 @@ class Attempt < ApplicationRecord
 	# scope :by_default, -> {order("score desc, time_diff asc")}
   broadcasts_to ->(attempt) { "attempts_quiz_#{attempt.quiz_id}" }, target: "attempt_list_real"
 
+  def to_s
+    self.name
+  end
 
 	def self.rank attempts
 		attempts.sort_by{|att| [-att.calc_score[:score], att.time_diff.blank? ? 999999999 : att.time_diff ]}

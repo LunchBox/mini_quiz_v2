@@ -1,7 +1,7 @@
 
 <%= turbo_frame_tag dom_id(attempt) do %>
   <li id="<%= dom_id attempt %>">
-    <span><%= link_to attempt.name, attempt %></span>
+    <span><%= link_to attempt, nil, data: { turbo_frame: "_top" } %></span>
     <span><%= attempt.school %></span>
     <span><%= attempt.start_at.strftime("%Y-%m-%d %H:%M:%S") if attempt.start_at %></span>
     <span><%= attempt.end_at.strftime("%Y-%m-%d %H:%M:%S") if attempt.end_at %></span>

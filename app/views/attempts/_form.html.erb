@@ -40,7 +40,11 @@
             <div style="overflow: hidden; padding-left: 3rem;">
               <label>
                 <span style="float: left; margin-right: 1rem;">
-                  <%= aaf.check_box :selected_options, {:multiple => true}, qo.id.to_s, nil %>
+                  <% if question.single_answer? %>
+                    <%= aaf.radio_button :selected_options, qo.id.to_s %>
+                  <% else %>
+                    <%= aaf.check_box :selected_options, {multiple: true}, qo.id.to_s, nil %>
+                  <% end %>
                 </span>
                 <span style="font-family: monospace;"><%= "ABCDEFGHIJK"[idx] %>.</span>
                 <%= qo.content %>

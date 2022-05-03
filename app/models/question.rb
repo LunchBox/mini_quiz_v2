@@ -21,7 +21,6 @@ class Question < ApplicationRecord
 	end
 
 	before_validation :batch_load_options
-
 	def batch_load_options
 		unless batch_options.blank?
 			self.question_options.clear
@@ -32,5 +31,9 @@ class Question < ApplicationRecord
 			end
 		end
 	end
+
+  def single_answer?
+    !self.correct_options.blank? && self.correct_options.size == 1
+  end
 
 end
