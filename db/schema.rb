@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_04_29_104345) do
+ActiveRecord::Schema.define(version: 2022_05_03_072257) do
 
   create_table "attempt_answers", force: :cascade do |t|
     t.integer "attempt_id", null: false
@@ -29,9 +29,6 @@ ActiveRecord::Schema.define(version: 2022_04_29_104345) do
     t.datetime "end_at", precision: 6
     t.float "score", default: 0.0
     t.string "auth_code"
-    t.string "school"
-    t.string "email"
-    t.string "mobile"
     t.float "time_diff"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false

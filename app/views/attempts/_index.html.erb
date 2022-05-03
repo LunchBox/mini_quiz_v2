@@ -15,7 +15,6 @@
     <tr>
       <td><%= idx + 1 %></td>
       <td><%= link_to attempt.name, attempt %></td>
-      <td><%= attempt.school %></td>
       <td><%= attempt.start_at.strftime("%Y-%m-%d %H:%M:%S") if attempt.start_at %></td>
       <td><%= attempt.end_at.strftime("%Y-%m-%d %H:%M:%S") if attempt.end_at %></td>
       <td>

@@ -8,10 +8,7 @@
   </div>
 
   <% if @attempt.new_record? %>
-    <%= f.input :school, label: "學校 School" %>
     <%= f.input :name, label: "姓名 Name" %>
-    <%= f.input :mobile, label: "電話號碼 Mobile" %>
-    <%= f.input :email, label: "電郵地址 Email" %>
     <div class="actions">
       <%= f.submit "開始 Start", class: "btn btn-primary" %>
     </div>
