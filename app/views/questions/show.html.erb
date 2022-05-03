@@ -5,14 +5,14 @@
 <h1><%= @question.subject %></h1>
 
 <% if @question.image? %>
-    <div style="margin-left: 4rem;">
-        <%= image_tag @question.image.url, style: "max-width: 100%;" %>
-    </div>
-    <%= link_to "Delete Image", [@question, clear_image: true], method: :put, data: {confirm: "Are you sure?"}  %>
+  <div style="margin-left: 4rem;">
+    <%= image_tag @question.image.url, style: "max-width: 100%;" %>
+  </div>
+  <%= link_to "Delete Image", [@question, clear_image: true], method: :put, data: {confirm: "Are you sure?"}  %>
 <% end %>
 
 <div>
-    <%= simple_format @question.desc %>
+  <%= simple_format @question.desc %>
 </div>
 
 <%= link_to 'Edit', edit_question_path(@question), class: "btn btn-default" %>
@@ -20,30 +20,31 @@
 <h2>Options</h2>
 
 
+<%= simple_form_for @question do |f| %>
+  <% @question.question_options.each_with_index do |qo, idx| %>
+    <div>
+      <%= f.check_box :correct_options, {:multiple => true}, qo.id.to_s, nil %>
+      <span style="font-family: monospace;"><%= "ABCDEFGHIJK"[idx] %>.</span>
+      <%= qo.content %> -
+      <%= link_to 'Edit', [:edit, qo] %> &middot;
+      <%= link_to 'Del', qo, data: { turbo_method: :delete, turbo_confirm: 'Are you sure?' } %>
 
-<%= form_for @question do |f| %>
-    <% @question.question_options.each_with_index do |qo, idx| %>
-        <div>
-            <%= f.check_box :correct_options, {:multiple => true}, qo.id.to_s, nil %>
-            <span style="font-family: monospace;"><%= "ABCDEFGHIJK"[idx] %>.</span>
-            <%= qo.content %> -
-            <%= link_to 'Edit', [:edit, qo] %> &middot;
-            <%= link_to 'Del', qo, method: :delete, data: { confirm: 'Are you sure?' } %>
-
-            <% if qo.image? %>
-                <div style="margin-left: 4rem;">
-                    <%= image_tag qo.image.url, style: "max-width: 100%;" %>
-                </div>
-            <% end %>
+      <% if qo.image? %>
+        <div style="margin-left: 4rem;">
+          <%= image_tag qo.image.url, style: "max-width: 100%;" %>
         </div>
-    <% end %>
-
-    <div class="actions">
-        <%= link_to '+ Option', [:new, @question, :question_option], class: "btn btn-default"  %>
-        <%= f.submit "Update Correct Options", class: "btn btn-default" %>
-
-        <% unless @question.correct_options.blank? %>
-            <%= link_to "Add New Question", [:new, @question.quiz, :question], class: "btn btn-default" %>
-        <% end %>
+      <% end %>
     </div>
+  <% end %>
+
+  <div class="actions">
+    <%= f.submit "Update Correct Options", class: "btn btn-default" %>
+
+    <% unless @question.correct_options.blank? %>
+      <%= link_to "Add New Question", [:new, @question.quiz, :question], class: "btn btn-default" %>
+    <% end %>
+  </div>
 <% end %>
+
+<h2>Add Option</h2>
+<%= render "question_options/form", question_option: QuestionOption.new %>

@@ -28,7 +28,7 @@ class QuestionOptionsController < ApplicationController
 
     respond_to do |format|
       if @question_option.save
-        format.html { redirect_to question_option_url(@question_option), notice: "Question option was successfully created." }
+        format.html { redirect_to @question, notice: "Question option was successfully created." }
         format.json { render :show, status: :created, location: @question_option }
       else
         format.html { render :new, status: :unprocessable_entity }
@@ -41,7 +41,7 @@ class QuestionOptionsController < ApplicationController
   def update
     respond_to do |format|
       if @question_option.update(question_option_params)
-        format.html { redirect_to question_option_url(@question_option), notice: "Question option was successfully updated." }
+        format.html { redirect_to @question_option.question, notice: "Question option was successfully updated." }
         format.json { render :show, status: :ok, location: @question_option }
       else
         format.html { render :edit, status: :unprocessable_entity }
@@ -55,7 +55,7 @@ class QuestionOptionsController < ApplicationController
     @question_option.destroy
 
     respond_to do |format|
-      format.html { redirect_to question_options_url, notice: "Question option was successfully destroyed." }
+      format.html { redirect_to @question_option.question, notice: "Question option was successfully destroyed." }
       format.json { head :no_content }
     end
   end
