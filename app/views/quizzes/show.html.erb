@@ -67,10 +67,22 @@
 </table>
 
 
-<h2>Attempts (<%= @quiz.attempts.size %>)</h2>
+
+<% attempts = @quiz.attempts %>
+
+<h2>Attempts (<%= attempts.size %>)</h2>
 
 <div class="btn-group">
   <%= link_to 'Attempt Quiz', [:new, @quiz, :attempt], class: "btn btn-default"  %>
 </div>
 
-<%= render 'attempts/index', attempts: Attempt.rank(@quiz.attempts) %>
+<br>
+
+<%= turbo_stream_from dom_id(@quiz, :attempts) %>
+<%= turbo_frame_tag "attempt_list" do %>
+  <ol id="attempt_list_real">
+    <%= render attempts %>
+  </ol>
+<% end %>
+
+
