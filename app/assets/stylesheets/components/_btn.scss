@@ -1,0 +1,13 @@
+.btn {
+	display: inline-block;
+	padding: 0.375rem 0.5rem;
+	border-radius: 0.375rem;
+	background-origin: border-box;
+	background-color: transparent;
+	border: solid 2px transparent;
+	font-weight: bold;
+	text-decoration: none;
+	cursor: pointer;
+	outline: none;
+	transition: filter 400ms, color 200ms;
+}

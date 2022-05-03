@@ -9,6 +9,7 @@
   <%= link_to 'Edit', edit_quiz_path(@quiz), class: "btn btn-default" %>
   <%= link_to 'Clone', [:clone, @quiz], data: { turbo_method: :post, turbo_confirm: "Are you sure?" }, class: "btn btn-default" %>
   <%= link_to "Add New Question", [:new, @quiz, :question], class: "btn btn-default" %>
+  <%= link_to 'Attempt Quiz', [:new, @quiz, :attempt], class: "btn btn-default"  %>
 </div>
 
 <% I18n.with_options(scope: 'activerecord.attributes.quiz') do |i18n| %>

@@ -2,13 +2,37 @@
 
 <h1>Quizzes</h1>
 
-<div id="quizzes">
-  <% @quizzes.each do |quiz| %>
-    <%= render quiz %>
-    <p>
-      <%= link_to quiz %>
-    </p>
-  <% end %>
-</div>
-
 <%= link_to "New quiz", new_quiz_path %>
+
+<br>
+<br>
+
+<table>
+  <thead>
+    <tr>
+      <th>Quiz</th>
+      <th>Created By</th>
+      <th>Created At</th>
+      <th>Updated At</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @quizzes.each do |quiz| %>
+      <tr>
+        <td>
+          <%= link_to quiz %>
+        </td>
+        <td>
+          <%= quiz.user %>
+        </td>
+        <td>
+          <%= quiz.created_at %>
+        </td>
+        <td>
+          <%= quiz.updated_at %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
