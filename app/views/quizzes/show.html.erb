@@ -17,7 +17,7 @@
   <%= link_to 'Moniter', [:moniter, @quiz], class: "btn btn-default"  %>
   <%= link_to 'Clone', [:clone, @quiz], data: { turbo_method: :post, turbo_confirm: "Are you sure?" }, class: "btn btn-default" %>
   <%= link_to "Add New Question", [:new, @quiz, :question], class: "btn btn-default" %>
-  <%= link_to 'Attempt Quiz', [:new, @quiz, :attempt], class: "btn btn-default"  %>
+  <%= link_to 'Attempt Quiz', attempt_to_path(@quiz), class: "btn btn-default"  %>
 </div>
 
 <div class="my-4">

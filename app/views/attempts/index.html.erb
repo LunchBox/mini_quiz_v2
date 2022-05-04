@@ -7,7 +7,7 @@
 <h1>Attempts (<%= @attempts.size %>)</h1>
 
 <div class="btn-group">
-  <%= link_to 'Attempt Quiz', [:new, @quiz, :attempt], class: "btn btn-default"  %>
+  <%= link_to 'Attempt Quiz', attempt_to_path(@quiz), class: "btn btn-default"  %>
 </div>
 
 

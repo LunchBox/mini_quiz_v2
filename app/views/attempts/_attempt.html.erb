@@ -6,6 +6,5 @@
     <span><%= attempt.end_at.strftime("%Y-%m-%d %H:%M:%S") if attempt.end_at %></span>
     <span><%= attempt.formatted_diff %></span>
     <span><%= attempt.formatted_score %></span>
-    <span><%= link_to 'Destroy', attempt, class: "btn", data: { turbo_method: :delete, turbo_confirm: 'Are you sure?' } %></span>
   </div>
 <% end %>
