@@ -1,13 +1,11 @@
 
 <%= turbo_frame_tag dom_id(attempt) do %>
-  <li id="<%= dom_id attempt %>">
-    <span><%= link_to attempt, nil, data: { turbo_frame: "_top" } %></span>
-    <span><%= attempt.start_at.strftime("%Y-%m-%d %H:%M:%S") if attempt.start_at %></span>
-    <span><%= attempt.end_at.strftime("%Y-%m-%d %H:%M:%S") if attempt.end_at %></span>
-    <span>
-      <%= attempt.formatted_diff %>
-    </span>
-    <span><%= attempt.formatted_score %></span>
-    <span><%= link_to 'Destroy', attempt, data: { turbo_method: :delete, turbo_confirm: 'Are you sure?' } %></span>
-  </li>
+  <tr id="<%= dom_id attempt %>">
+    <td><%= link_to attempt, nil, data: { turbo_frame: "_top" } %></td>
+    <td><%= attempt.start_at.strftime("%Y-%m-%d %H:%M:%S") if attempt.start_at %></td>
+    <td><%= attempt.end_at.strftime("%Y-%m-%d %H:%M:%S") if attempt.end_at %></td>
+    <td><%= attempt.formatted_diff %></td>
+    <td><%= attempt.formatted_score %></td>
+    <td><%= link_to 'Destroy', attempt, class: "btn", data: { turbo_method: :delete, turbo_confirm: 'Are you sure?' } %></td>
+  </tr>
 <% end %>

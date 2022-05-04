@@ -44,4 +44,11 @@ zh-HK:
         random_questions: 題目亂序
         random_options: 題目中的選項亂序 
         available: 公佈
+      attempt:
+        name: 姓名
+        start_at: 開始時間
+        end_at: 提交時間
+        duration: 用時
+        result: 成績
+        scores: 成績
 

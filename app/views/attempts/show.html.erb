@@ -5,32 +5,34 @@
 <h1><%= @attempt.quiz %></h1>
 
 
-<table>
-  <tr>
-    <th>Name</th>
-    <td><%= @attempt.name %></td>
-  </tr>
-  <tr>
-    <th>Start At</th>
-    <td><%= @attempt.start_at.strftime("%Y-%m-%d %H:%M:%S") if @attempt.start_at %></td>
-  </tr>
-  <tr>
-    <th>End At</th>
-    <td><%= @attempt.end_at.strftime("%Y-%m-%d %H:%M:%S") if @attempt.end_at %></td>
-  </tr>
-
-  <% if @attempt.start_at and @attempt.end_at %>
+<% I18n.with_options(scope: 'activerecord.attributes.attempt') do |i18n| %>
+  <table>
     <tr>
-      <th>Duration</th>
-      <td><%= @attempt.formatted_diff %></td>
+      <th><%= i18n.t :name %></th>
+      <td><%= @attempt.name %></td>
     </tr>
-  <% end %>
+    <tr>
+      <th><%= i18n.t :start_at %></th>
+      <td><%= @attempt.start_at.strftime("%Y-%m-%d %H:%M:%S") if @attempt.start_at %></td>
+    </tr>
+    <tr>
+      <th><%= i18n.t :end_at %></th>
+      <td><%= @attempt.end_at.strftime("%Y-%m-%d %H:%M:%S") if @attempt.end_at %></td>
+    </tr>
 
-  <tr>
-    <th>Result</th>
-    <td><%= @attempt.formatted_score %></td>
-  </tr>
-</table>
+    <% if @attempt.start_at and @attempt.end_at %>
+      <tr>
+        <th><%= i18n.t :duration %></th>
+        <td><%= @attempt.formatted_diff %></td>
+      </tr>
+    <% end %>
+
+    <tr>
+      <th><%= i18n.t :result %></th>
+      <td><%= @attempt.formatted_score %></td>
+    </tr>
+  </table>
+<% end %>
 
 
 
@@ -38,26 +40,31 @@
 <% @attempt.attempt_answers.each_with_index do |aa, idx| %>
   <% question = aa.question %>
 
-  <div class="question">
-    <h3>
+  <div class="my-4">
+    <div class="">
       <%= idx + 1 %>.
       <%= question.subject %>
-    </h3>
-    <div style="font-size: smaller; color: #999;">
-      score: <%= aa.calc_score(question.correct_options, @attempt.quiz.calc_type, question.score).to_f %> out of <%= question.score %>; 
-      <%= question.fixed_options ? "fixed options (no shuffle)" : "" %>        
-    </div>
-    <div>
-      <%= simple_format question.desc %>
     </div>
 
-    <% question.question_options.each_with_index do |qo, jdx| %>
-      <div>
-        <%= check_box_tag :attempt_answer, :selected_options, aa.selected_options.try(:"include?", qo.id.to_s), disabled: true %>
-        <span style="font-family: monospace;"><%= "ABCDEFGHIJK"[jdx] %>.</span>
-        <%= qo.content %>
-        <%= '✔' if aa.question.correct_options.try(:"include?", qo.id.to_s) %>
+    <div class="ml-4">
+      <div style="font-size: smaller; color: #999;">
+        score: <%= aa.calc_score(question.correct_options, @attempt.quiz.calc_type, question.score).to_f %> out of <%= question.score %>; 
+        <%= question.fixed_options ? "fixed options (no shuffle)" : "" %>        
       </div>
-    <% end %>
+      <div class="my-2">
+        <%= simple_format question.desc %>
+      </div>
+
+      <div class="ml-4">
+        <% question.question_options.each_with_index do |qo, jdx| %>
+          <div>
+            <%= check_box_tag :attempt_answer, :selected_options, aa.selected_options.try(:"include?", qo.id.to_s), disabled: true %>
+            <span style="font-family: monospace;"><%= "ABCDEFGHIJK"[jdx] %>.</span>
+            <%= qo.content %>
+            <%= '✔' if aa.question.correct_options.try(:"include?", qo.id.to_s) %>
+          </div>
+        <% end %>
+      </div>
+    </div>
   </div>
 <% end %>

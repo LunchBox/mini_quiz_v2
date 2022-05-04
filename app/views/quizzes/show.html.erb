@@ -13,34 +13,34 @@
 </div>
 
 
-<table>
 <% I18n.with_options(scope: 'activerecord.attributes.quiz') do |i18n| %>
-  <tr>
-    <th><%= i18n.t :calc_type %></th>
-    <td><%= @quiz.calc_type.blank? ? "full_match" : @quiz.calc_type %></td>
-  </tr>
-  <tr>
-    <th><%= i18n.t :desc %></th>
-    <td><%= simple_format @quiz.desc %></td>
-  </tr>
-  <tr>
-    <th><%= i18n.t :pre_notice %></th>
-    <td><%= simple_format @quiz.pre_notice %></td>
-  </tr>
-  <tr>
-    <th><%= i18n.t :random_questions %></th>
-    <td><%= @quiz.random_questions %></td>
-  </tr>
-  <tr>
-    <th><%= i18n.t :random_options %></th>
-    <td><%= @quiz.random_options %></td>
-  </tr>
-  <tr>
-    <th><%= i18n.t :available %></th>
-    <td><%= @quiz.available %></td>
-  </tr>
+  <table>
+    <tr>
+      <th><%= i18n.t :calc_type %></th>
+      <td><%= @quiz.calc_type.blank? ? "full_match" : @quiz.calc_type %></td>
+    </tr>
+    <tr>
+      <th><%= i18n.t :desc %></th>
+      <td><%= simple_format @quiz.desc %></td>
+    </tr>
+    <tr>
+      <th><%= i18n.t :pre_notice %></th>
+      <td><%= simple_format @quiz.pre_notice %></td>
+    </tr>
+    <tr>
+      <th><%= i18n.t :random_questions %></th>
+      <td><%= @quiz.random_questions %></td>
+    </tr>
+    <tr>
+      <th><%= i18n.t :random_options %></th>
+      <td><%= @quiz.random_options %></td>
+    </tr>
+    <tr>
+      <th><%= i18n.t :available %></th>
+      <td><%= @quiz.available %></td>
+    </tr>
+  </table>
 <% end %>
-</table>
 
 <h2>Questions (<%= @quiz.questions.size %>)</h2>
 
@@ -56,7 +56,6 @@
     <th>Correct</th>
     <th>Score</th>
     <th></th>
-    <th></th>
   </tr>
   <% @quiz.questions.each_with_index do |question, idx| %>
     <tr>
@@ -65,8 +64,10 @@
       <td><%= question.question_options.size %></td>
       <td><%= question.correct_options.try :size %></td>
       <td><%= question.score %></td>
-      <td><%= link_to 'Edit', [:edit, question] %></td>
-      <td><%= link_to 'Destroy', question, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      <td>
+        <%= link_to 'Edit', [:edit, question], class: "btn" %>
+        <%= link_to 'Destroy', question, method: :delete, class: "btn", data: { confirm: 'Are you sure?' } %>
+      </td>
     </tr>
   <% end %>
 </table>
@@ -81,13 +82,26 @@
   <%= link_to 'Attempt Quiz', [:new, @quiz, :attempt], class: "btn btn-default"  %>
 </div>
 
-<br>
-
 <%= turbo_stream_from dom_id(@quiz, :attempts) %>
-<%= turbo_frame_tag "attempt_list" do %>
-  <ol id="attempt_list_real">
-    <%= render attempts %>
-  </ol>
-<% end %>
 
+
+<% I18n.with_options(scope: 'activerecord.attributes.attempt') do |i18n| %>
+  <table>
+    <thead>
+      <tr>
+        <th><%= i18n.t :name %></th>
+        <th><%= i18n.t :start_at %></th>
+        <th><%= i18n.t :end_at %></th>
+        <th><%= i18n.t :duration %></th>
+        <th><%= i18n.t :scores %></th>
+        <th></th>
+      </tr>
+    </thead>
+    <%= turbo_frame_tag "attempt_list" do %>
+      <tbody id="attempt_list_real">
+        <%= render attempts %>
+      </tbody>
+    <% end %>
+  </table>
+<% end %>
 
