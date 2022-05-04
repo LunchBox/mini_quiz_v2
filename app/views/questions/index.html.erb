@@ -14,6 +14,7 @@
 <table>
   <tr>
     <th></th>
+    <th></th>
     <th>Question Name</th>
     <th>Options</th>
     <th>Correct</th>
@@ -23,6 +24,10 @@
   <% @questions.each_with_index do |question, idx| %>
     <tr>
       <td><%= idx + 1 %></td>
+      <td>
+        <%= link_to "Up", [:up, question], data: { turbo_method: :put }, class: "btn" %>
+        <%= link_to "Down", [:down, question], data: { turbo_method: :put }, class: "btn" %>
+      </td>
       <td><%= link_to question %></td>
       <td><%= question.question_options.size %></td>
       <td><%= question.correct_options.try :size %></td>

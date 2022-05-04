@@ -12,6 +12,10 @@ Rails.application.routes.draw do
   resources :question_options
 
   resources :questions do
+    member do 
+      put :up
+      put :down
+    end
     resources :question_options
   end
 

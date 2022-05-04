@@ -50,7 +50,7 @@ class AttemptsController < ApplicationController
     @attempt.start_at = Time.now
     @attempt.gen_auth_code
 
-    questions = @quiz.shuffle_questions ? @quiz.questions.shuffle : @quiz.questions
+    questions = @quiz.shuffle_questions ? @quiz.questions.shuffle : @quiz.questions.by_seq
 
     questions.each_with_index do |q, idx|
       aa = @attempt.attempt_answers.build

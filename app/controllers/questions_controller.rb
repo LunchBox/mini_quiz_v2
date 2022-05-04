@@ -1,10 +1,10 @@
 class QuestionsController < ApplicationController
   before_action :set_quiz, only: %i[ index new create ]
-  before_action :set_question, only: %i[ show edit update destroy ]
+  before_action :set_question, only: %i[ show edit update up down destroy ]
 
   # GET /questions or /questions.json
   def index
-    @questions = @quiz.questions
+    @questions = @quiz.questions.by_seq
   end
 
   # GET /questions/1 or /questions/1.json
@@ -34,6 +34,50 @@ class QuestionsController < ApplicationController
         format.html { render :new, status: :unprocessable_entity }
         format.json { render json: @question.errors, status: :unprocessable_entity }
       end
+    end
+  end
+
+  def up
+    @quiz = @question.quiz
+    questions = @quiz.questions.by_seq.to_a
+    idx = questions.index @question
+
+    if idx > 0
+      begin
+        ActiveRecord::Base.transaction do
+          questions.insert(idx - 1, questions.delete_at(idx))
+          questions.each_with_index do |q, index|
+            q.update! seq: index
+          end
+        end
+      # rescue
+      end
+    end
+
+    respond_to do |format|
+      format.html { redirect_to [@quiz, :questions], notice: "Question was successfully updated." }
+    end
+  end
+
+  def down
+    @quiz = @question.quiz
+    questions = @quiz.questions.by_seq.to_a
+    idx = questions.index @question
+
+    if idx < questions.size - 1
+      begin
+        ActiveRecord::Base.transaction do
+          questions.insert(idx + 1, questions.delete_at(idx))
+          questions.each_with_index do |q, index|
+            q.update! seq: index
+          end
+        end
+      # rescue
+      end
+    end
+
+    respond_to do |format|
+      format.html { redirect_to [@quiz, :questions], notice: "Question was successfully updated." }
     end
   end
 

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_05_04_071438) do
+ActiveRecord::Schema.define(version: 2022_05_04_072201) do
 
   create_table "attempt_answers", force: :cascade do |t|
     t.integer "attempt_id", null: false
@@ -56,6 +56,7 @@ ActiveRecord::Schema.define(version: 2022_05_04_071438) do
     t.boolean "fixed_options", default: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.integer "seq", default: 0
     t.index ["quiz_id"], name: "index_questions_on_quiz_id"
     t.index ["user_id"], name: "index_questions_on_user_id"
   end
