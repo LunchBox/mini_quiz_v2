@@ -32,7 +32,7 @@
 
 
 label.boolean {
-  @apply flex items-center hover:cursor-pointer;
+  @apply inline-flex items-center hover:cursor-pointer;
 }
 
 label.boolean input.boolean{

@@ -9,6 +9,9 @@ class AttemptAnswer < ApplicationRecord
 		return if correct_options.blank?
 		return if self.selected_options.blank?
 
+    # 選了非答案的選項
+    return if (self.selected_options - correct_options).size > 0
+
 		case calc_type
 		when "part_match"
 			if (correct_options | self.selected_options) == correct_options

@@ -42,6 +42,8 @@ zh-HK:
         desc: 測驗介紹
         pre_notice: 考前須知
         calc_type: 分數計算方式
+        full_match: 完全匹配（少選/多選一個選項全部扣分）
+        part_match: 部分匹配（少選仍然可以得分，多選全部扣分）
         random_questions: 題目亂序
         random_options: 題目中的選項亂序 
         available: 公佈
