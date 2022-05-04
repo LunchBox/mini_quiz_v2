@@ -20,6 +20,11 @@
   <%= link_to 'Attempt Quiz', [:new, @quiz, :attempt], class: "btn btn-default"  %>
 </div>
 
+<div class="my-4">
+  <div>Attempt URL:</div>
+  <div><%= link_to url_for(attempt_to_url(@quiz)), attempt_to_url(@quiz) %></div>
+</div>
+
 <% I18n.with_options(scope: 'activerecord.attributes.quiz') do |i18n| %>
   <table>
     <tr>

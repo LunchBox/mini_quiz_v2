@@ -60,7 +60,7 @@ class AttemptsController < ApplicationController
 
     respond_to do |format|
       if @attempt.save
-        format.html { redirect_to [:edit, @attempt, auth_code: @attempt.auth_code], notice: "Attempt was successfully created." }
+        format.html { redirect_to attempt_with_path(@attempt, @attempt.auth_code), notice: "Attempt was successfully created." }
         format.json { render :show, status: :created, location: @attempt }
       else
         format.html { render :new, status: :unprocessable_entity }
