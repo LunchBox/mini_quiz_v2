@@ -13,6 +13,20 @@ class Quiz < ApplicationRecord
 		self.title
 	end
 
+  def to_param
+    self.permalink
+  end
+
+	before_save :make_permalink
+	def make_permalink
+		return unless self.permalink.blank?
+		loop do
+			# this can create permalink with random 8 digit alphanumeric
+			self.permalink = SecureRandom.urlsafe_base64(8)
+			break self.permalink unless Quiz.where(permalink: self.permalink).exists?
+		end
+	end
+
 	def deep_clone!
 		ActiveRecord::Base.transaction do
 			new_quiz = self.dup

@@ -1,10 +1,10 @@
 class AttemptsController < ApplicationController
+  before_action :set_quiz, only: %i[ index new create ]
   before_action :set_attempt, only: %i[ show edit update destroy ]
 	skip_before_action :authenticate_user!, only: [:show, :new, :create, :edit, :update, :notice, :unavailable]
 
   # GET /attempts or /attempts.json
   def index
-		@quiz = Quiz.find params[:quiz_id]
     @attempts = Attempt.rank @quiz.attempts
   end
 
@@ -17,8 +17,6 @@ class AttemptsController < ApplicationController
 
   # GET /attempts/new
   def new
-		@quiz = Quiz.find params[:quiz_id]
-
 		respond_to do |format|
 			if @quiz.available?
 				@attempt = Attempt.new
@@ -47,8 +45,6 @@ class AttemptsController < ApplicationController
 
   # POST /attempts or /attempts.json
   def create
-		@quiz = Quiz.find params[:quiz_id]
-
     @attempt = Attempt.new(attempt_params)
     @attempt.quiz = @quiz
     @attempt.start_at = Time.now
@@ -100,6 +96,10 @@ class AttemptsController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_attempt
       @attempt = Attempt.find(params[:id])
+    end
+
+    def set_quiz
+      @quiz = Quiz.find_by! permalink: params[:quiz_id]
     end
 
     # Only allow a list of trusted parameters through.

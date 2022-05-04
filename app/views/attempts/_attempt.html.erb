@@ -1,6 +1,6 @@
 
 <%= turbo_frame_tag dom_id(attempt) do %>
-  <tr id="<%= dom_id attempt %>">
+  <tr>
     <td><%= link_to attempt, nil, data: { turbo_frame: "_top" } %></td>
     <td><%= attempt.start_at.strftime("%Y-%m-%d %H:%M:%S") if attempt.start_at %></td>
     <td><%= attempt.end_at.strftime("%Y-%m-%d %H:%M:%S") if attempt.end_at %></td>
