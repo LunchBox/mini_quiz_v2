@@ -6,8 +6,8 @@
   <%= f.input :desc %>
   <%= f.input :pre_notice %>
   <%= f.input :calc_type, collection: Quiz::CALC_TYPES.map{|ct| [t(ct, scope: "activerecord.attributes.quiz"), ct]} %>
-  <%= f.input :random_questions %>
-  <%= f.input :random_options %>
+  <%= f.input :shuffle_questions %>
+  <%= f.input :shuffle_options %>
   <%= f.input :available %>
   <%= f.input :anonymous %>
   <%= f.input :result_viewable %>

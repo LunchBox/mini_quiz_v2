@@ -19,7 +19,6 @@
   <% else %>
     <div class="my-4" id="question-list">
       <% idx = 0 %>
-      <% attempt_answers = @quiz.random_questions ? @attempt.attempt_answers.shuffle : @attempt.attempt_answers %>
       <% attempt_answers = @attempt.attempt_answers.by_seq %>
       <%= f.simple_fields_for :attempt_answers, attempt_answers, wrapper:false do |aaf| %>
         <% question = aaf.object.question %>
@@ -32,7 +31,7 @@
             <%= simple_format question.desc %>
           </div>
 
-          <% options = (@quiz.random_options and !question.fixed_options) ? question.question_options.shuffle : question.question_options %>
+          <% options = (@quiz.shuffle_options and !question.fixed_options) ? question.question_options.shuffle : question.question_options %>
           <% options.each_with_index do |qo, idx| %>
             <label class="my-2 ml-8 hover:cursor-pointer">
               <div class="flex items-center">

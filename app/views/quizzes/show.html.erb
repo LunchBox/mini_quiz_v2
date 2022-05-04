@@ -43,12 +43,12 @@
       <td><%= simple_format @quiz.pre_notice %></td>
     </tr>
     <tr>
-      <th><%= i18n.t :random_questions %></th>
-      <td class="text-center"><%= '✔' if @quiz.random_questions %></td>
+      <th><%= i18n.t :shuffle_questions %></th>
+      <td class="text-center"><%= '✔' if @quiz.shuffle_questions %></td>
     </tr>
     <tr>
-      <th><%= i18n.t :random_options %></th>
-      <td class="text-center"><%= '✔' if @quiz.random_options %></td>
+      <th><%= i18n.t :shuffle_options %></th>
+      <td class="text-center"><%= '✔' if @quiz.shuffle_options %></td>
     </tr>
     <tr>
       <th><%= i18n.t :anonymous %></th>

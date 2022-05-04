@@ -85,8 +85,8 @@ class QuizzesController < ApplicationController
         :available, 
         :anonymous, 
         :result_viewable,
-        :random_options, 
-        :random_questions
+        :shuffle_options, 
+        :shuffle_questions
       )
     end
 end
