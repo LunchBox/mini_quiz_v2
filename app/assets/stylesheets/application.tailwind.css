@@ -34,3 +34,7 @@
 label.boolean {
   @apply flex items-center;
 }
+
+label.boolean input.boolean{
+  @apply mr-2;
+}

@@ -13,12 +13,12 @@
       <%= f.submit "開始 Start", class: "btn btn-primary" %>
     </div>
   <% else %>
-    <div class="questions" id="question-list">
+    <div class="my-4" id="question-list">
       <% idx = 0 %>
       <% attempt_answers = @quiz.random_questions ? @attempt.attempt_answers.shuffle : @attempt.attempt_answers %>
       <%= f.simple_fields_for :attempt_answers, attempt_answers, wrapper:false do |aaf| %>
         <% question = aaf.object.question %>
-        <div class="question">
+        <div class="">
           <h3 class="content">
             <%= idx += 1 %>.
             <%= question.subject %>
@@ -34,25 +34,24 @@
 
           <% options = (@quiz.random_options and !question.fixed_options) ? question.question_options.shuffle : question.question_options %>
           <% options.each_with_index do |qo, idx| %>
-            <div style="overflow: hidden; padding-left: 3rem;">
-              <label>
-                <span style="float: left; margin-right: 1rem;">
-                  <% if question.single_answer? %>
-                    <%= aaf.radio_button :selected_options, qo.id.to_s %>
-                  <% else %>
-                    <%= aaf.check_box :selected_options, {multiple: true}, qo.id.to_s, nil %>
-                  <% end %>
-                </span>
-                <span style="font-family: monospace;"><%= "ABCDEFGHIJK"[idx] %>.</span>
-                <%= qo.content %>
-
-                <% if qo.image? %>
-                  <div style="margin-left: 4rem;">
-                    <%= image_tag qo.image.url, style: "max-width: 100%;" %>
-                  </div>
+            <label class="my-2 ml-8 hover:cursor-pointer">
+              <div class="flex items-center">
+                <% if question.single_answer? %>
+                  <%= aaf.radio_button :selected_options, qo.id.to_s, class: "mr-2" %>
+                <% else %>
+                  <%= aaf.check_box :selected_options, { multiple: true, class: "mr-2" }, qo.id.to_s, nil %>
                 <% end %>
-              </label>
-            </div>
+                <span class="mr-2"><%= "ABCDEFGHIJK"[idx] %>.</span>
+
+                <%= qo.content %>
+              </div>
+
+              <% if qo.image? %>
+                <div>
+                  <%= image_tag qo.image.url, style: "max-width: 100%;" %>
+                </div>
+              <% end %>
+            </label>
           <% end %>
           <%= aaf.hidden_field :question_id %>
         </div>
