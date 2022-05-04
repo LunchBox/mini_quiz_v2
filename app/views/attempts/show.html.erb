@@ -39,7 +39,7 @@
 
 
 
-<% @attempt.attempt_answers.each_with_index do |aa, idx| %>
+<% @attempt.attempt_answers.by_seq.each_with_index do |aa, idx| %>
   <% question = aa.question %>
 
   <div class="my-4">
