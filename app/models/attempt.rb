@@ -42,7 +42,7 @@ class Attempt < ApplicationRecord
 		return unless self.permalink.blank?
 		loop do
 			# this can create permalink with random 8 digit alphanumeric
-			self.permalink = SecureRandom.urlsafe_base64(8)
+			self.permalink = SecureRandom.urlsafe_base64(4)
 			break self.permalink unless Quiz.where(permalink: self.permalink).exists?
 		end
 	end
@@ -55,12 +55,8 @@ class Attempt < ApplicationRecord
     !code.blank? and code == self.auth_code
   end
 
-  CODE_RANGE = (0..9).to_a + ('a'..'z').to_a + ('A'..'Z').to_a
-  CODE_RANGE_SIZE = CODE_RANGE.size
-
   def gen_auth_code
-    # self.auth_code = (0...32).map { ('a'..'z').to_a[rand(26)] }.join
-    self.auth_code = (0...8).map { CODE_RANGE[rand(CODE_RANGE_SIZE)] }.join
+		self.auth_code = SecureRandom.urlsafe_base64(4)
   end
 
   def submit!
