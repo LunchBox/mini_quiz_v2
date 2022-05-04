@@ -13,9 +13,9 @@
 
   <body>
     <% if user_signed_in? %>
-      <header class="px-4 py-2 bg-slate-100">
+      <header class="flex px-4 py-2 bg-slate-100">
         <%= link_to "Quizzes", :root, class: "mr-2" %>
-        <%= link_to "Sign out", destroy_user_session_path, :method => :delete %>
+        <%= link_to "Sign out", destroy_user_session_path, data: { turbo_method: :delete }, class: "ml-auto" %>
       </header>
     <% end %>
 
