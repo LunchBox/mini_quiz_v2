@@ -1,14 +1,40 @@
-<p style="color: green"><%= notice %></p>
-
-<h1>Attempts</h1>
-
-<div id="attempts">
-  <% @attempts.each do |attempt| %>
-    <%= render attempt %>
-    <p>
-      <%= link_to "Show this attempt", attempt %>
-    </p>
-  <% end %>
+<div>
+  &lt; <%= link_to @quiz %>
 </div>
 
-<%= link_to "New attempt", new_attempt_path %>
+<p style="color: green"><%= notice %></p>
+
+<h1>Attempts (<%= @attempts.size %>)</h1>
+
+<div class="btn-group">
+  <%= link_to 'Attempt Quiz', [:new, @quiz, :attempt], class: "btn btn-default"  %>
+</div>
+
+
+<% I18n.with_options(scope: 'activerecord.attributes.attempt') do |i18n| %>
+  <table>
+    <thead>
+      <tr>
+        <th><%= i18n.t :name %></th>
+        <th><%= i18n.t :start_at %></th>
+        <th><%= i18n.t :end_at %></th>
+        <th><%= i18n.t :duration %></th>
+        <th><%= i18n.t :scores %></th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @attempts.each do |attempt| %>
+        <tr>
+          <td><%= link_to attempt, nil, data: { turbo_frame: "_top" } %></td>
+          <td><%= attempt.start_at.strftime("%Y-%m-%d %H:%M:%S") if attempt.start_at %></td>
+          <td><%= attempt.end_at.strftime("%Y-%m-%d %H:%M:%S") if attempt.end_at %></td>
+          <td><%= attempt.formatted_diff %></td>
+          <td><%= attempt.formatted_score %></td>
+          <td><%= link_to 'Destroy', attempt, class: "btn", data: { turbo_method: :delete, turbo_confirm: 'Are you sure?' } %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+<% end %>
+

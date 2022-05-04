@@ -1,10 +1,10 @@
 class QuestionsController < ApplicationController
-  before_action :set_quiz, only: %i[ new create ]
+  before_action :set_quiz, only: %i[ index new create ]
   before_action :set_question, only: %i[ show edit update destroy ]
 
   # GET /questions or /questions.json
   def index
-    @questions = Question.all
+    @questions = @quiz.questions
   end
 
   # GET /questions/1 or /questions/1.json

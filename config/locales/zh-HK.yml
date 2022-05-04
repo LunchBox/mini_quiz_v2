@@ -38,6 +38,7 @@ zh-HK:
       question: 題目
     attributes:
       quiz:
+        permalink: Permalink
         title: 標題
         desc: 測驗介紹
         pre_notice: 考前須知

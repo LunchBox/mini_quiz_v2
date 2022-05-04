@@ -1,3 +1,7 @@
+<div>
+  &lt; <%= link_to "Quizzes", :quizzes %>
+</div>
+
 <p style="color: green"><%= notice %></p>
 
 <h1>
@@ -5,21 +9,30 @@
   [<%= @quiz.available? ? "Available" : "Unavailable" %>]
 </h1>
 
+
 <div class="btn-group">
-  <%= @quiz.permalink %>
   <%= link_to 'Edit', edit_quiz_path(@quiz), class: "btn btn-default" %>
+  <%= link_to 'Questions', [@quiz, :questions], class: "btn btn-default" %>
+  <%= link_to 'Attempts', [@quiz, :attempts], class: "btn btn-default" %>
+  <%= link_to 'Moniter', [:moniter, @quiz], class: "btn btn-default"  %>
   <%= link_to 'Clone', [:clone, @quiz], data: { turbo_method: :post, turbo_confirm: "Are you sure?" }, class: "btn btn-default" %>
   <%= link_to "Add New Question", [:new, @quiz, :question], class: "btn btn-default" %>
   <%= link_to 'Attempt Quiz', [:new, @quiz, :attempt], class: "btn btn-default"  %>
-  <%= link_to 'Moniter', [:moniter, @quiz], class: "btn btn-default"  %>
 </div>
-
 
 <% I18n.with_options(scope: 'activerecord.attributes.quiz') do |i18n| %>
   <table>
     <tr>
+      <th><%= i18n.t :available %></th>
+      <td class="text-center"><%= '✔' if @quiz.available %></td>
+    </tr>
+    <tr>
+      <th><%= i18n.t :permalink %></th>
+      <td><%= @quiz.permalink %></td>
+    </tr>
+    <tr>
       <th><%= i18n.t :calc_type %></th>
-      <td><%= @quiz.calc_type.blank? ? "full_match" : @quiz.calc_type %></td>
+      <td><%= t(@quiz.calc_type.blank? ? "full_match" : @quiz.calc_type, scope: 'activerecord.attributes.quiz') %></td>
     </tr>
     <tr>
       <th><%= i18n.t :desc %></th>
@@ -38,10 +51,6 @@
       <td class="text-center"><%= '✔' if @quiz.random_options %></td>
     </tr>
     <tr>
-      <th><%= i18n.t :available %></th>
-      <td class="text-center"><%= '✔' if @quiz.available %></td>
-    </tr>
-    <tr>
       <th><%= i18n.t :anonymous %></th>
       <td class="text-center"><%= '✔' if @quiz.anonymous %></td>
     </tr>
@@ -49,74 +58,17 @@
       <th><%= i18n.t :result_viewable %></th>
       <td class="text-center"><%= '✔' if @quiz.result_viewable %></td>
     </tr>
-  </table>
-<% end %>
-
-<h2>Questions (<%= @quiz.questions.size %>)</h2>
-
-<div class="btn-group">
-  <%= link_to '+ Question', [:new, @quiz, :question], class: "btn btn-default" %>
-</div>
-
-<table>
-  <tr>
-    <th></th>
-    <th>Question Name</th>
-    <th>Options</th>
-    <th>Correct</th>
-    <th>Score</th>
-    <th></th>
-  </tr>
-  <% @quiz.questions.each_with_index do |question, idx| %>
     <tr>
-      <td><%= idx + 1 %></td>
-      <td><%= link_to question %></td>
-      <td><%= question.question_options.size %></td>
-      <td><%= question.correct_options.try :size %></td>
-      <td><%= question.score %></td>
-      <td>
-        <%= link_to 'Edit', [:edit, question], class: "btn" %>
-        <%= link_to 'Destroy', question, method: :delete, class: "btn", data: { confirm: 'Are you sure?' } %>
-      </td>
+      <th><%= i18n.t :desc %></th>
+      <td><%= simple_format @quiz.desc %></td>
     </tr>
-  <% end %>
-</table>
-
-
-
-<% attempts = @quiz.attempts %>
-
-<h2>Attempts (<%= attempts.size %>)</h2>
-
-<div class="btn-group">
-  <%= link_to 'Attempt Quiz', [:new, @quiz, :attempt], class: "btn btn-default"  %>
-</div>
-
-
-<% I18n.with_options(scope: 'activerecord.attributes.attempt') do |i18n| %>
-  <table>
-    <thead>
-      <tr>
-        <th><%= i18n.t :name %></th>
-        <th><%= i18n.t :start_at %></th>
-        <th><%= i18n.t :end_at %></th>
-        <th><%= i18n.t :duration %></th>
-        <th><%= i18n.t :scores %></th>
-        <th></th>
-      </tr>
-    </thead>
-    <tbody>
-      <% attempts.each do |attempt| %>
-        <tr>
-          <td><%= link_to attempt, nil, data: { turbo_frame: "_top" } %></td>
-          <td><%= attempt.start_at.strftime("%Y-%m-%d %H:%M:%S") if attempt.start_at %></td>
-          <td><%= attempt.end_at.strftime("%Y-%m-%d %H:%M:%S") if attempt.end_at %></td>
-          <td><%= attempt.formatted_diff %></td>
-          <td><%= attempt.formatted_score %></td>
-          <td><%= link_to 'Destroy', attempt, class: "btn", data: { turbo_method: :delete, turbo_confirm: 'Are you sure?' } %></td>
-        </tr>
-      <% end %>
-    </tbody>
+    <tr>
+      <th><%= i18n.t :pre_notice %></th>
+      <td><%= simple_format @quiz.pre_notice %></td>
+    </tr>
   </table>
 <% end %>
+
+
+
 

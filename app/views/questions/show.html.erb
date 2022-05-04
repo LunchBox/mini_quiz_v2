@@ -1,10 +1,12 @@
-<%= link_to "Back to Quiz", @question.quiz %> &middot;
-<%= link_to "Add New Question", [:new, @question.quiz, :question], class: "btn btn-default" %>
+
+<div>
+  &lt; <%= link_to @question.quiz, [@question.quiz, :questions] %>
+  &middot; <%= link_to "Add New Question", [:new, @question.quiz, :question] %>
+</div>
 
 <p id="notice"><%= notice %></p>
 
 <h1><%= @question.subject %></h1>
-
 
 <div>
   <%= simple_format @question.desc %>

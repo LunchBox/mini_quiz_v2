@@ -1,14 +1,36 @@
-<p style="color: green"><%= notice %></p>
 
-<h1>Questions</h1>
-
-<div id="questions">
-  <% @questions.each do |question| %>
-    <%= render question %>
-    <p>
-      <%= link_to "Show this question", question %>
-    </p>
-  <% end %>
+<div>
+  &lt; <%= link_to @quiz %>
 </div>
 
-<%= link_to "New question", new_question_path %>
+<p style="color: green"><%= notice %></p>
+
+<h1>Questions (<%= @quiz.questions.size %>)</h1>
+
+<div class="btn-group">
+  <%= link_to '+ Question', [:new, @quiz, :question], class: "btn btn-default" %>
+</div>
+
+<table>
+  <tr>
+    <th></th>
+    <th>Question Name</th>
+    <th>Options</th>
+    <th>Correct</th>
+    <th>Score</th>
+    <th></th>
+  </tr>
+  <% @questions.each_with_index do |question, idx| %>
+    <tr>
+      <td><%= idx + 1 %></td>
+      <td><%= link_to question %></td>
+      <td><%= question.question_options.size %></td>
+      <td><%= question.correct_options.try :size %></td>
+      <td><%= question.score %></td>
+      <td>
+        <%= link_to 'Edit', [:edit, question], class: "btn" %>
+        <%= link_to 'Destroy', question, method: :delete, class: "btn", data: { confirm: 'Are you sure?' } %>
+      </td>
+    </tr>
+  <% end %>
+</table>
