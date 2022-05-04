@@ -4,6 +4,7 @@ class AttemptAnswer < ApplicationRecord
 
 	serialize :selected_options
 
+  scope :by_seq, -> { order seq: :asc }
 
 	def calc_score correct_options, calc_type, score
 		return if correct_options.blank?

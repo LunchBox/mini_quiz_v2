@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_05_04_061843) do
+ActiveRecord::Schema.define(version: 2022_05_04_062900) do
 
   create_table "attempt_answers", force: :cascade do |t|
     t.integer "attempt_id", null: false
@@ -18,6 +18,7 @@ ActiveRecord::Schema.define(version: 2022_05_04_061843) do
     t.string "selected_options"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.integer "seq"
     t.index ["attempt_id"], name: "index_attempt_answers_on_attempt_id"
     t.index ["question_id"], name: "index_attempt_answers_on_question_id"
   end

@@ -1,4 +1,5 @@
 class QuestionsController < ApplicationController
+  before_action :set_quiz, only: %i[ new create ]
   before_action :set_question, only: %i[ show edit update destroy ]
 
   # GET /questions or /questions.json
@@ -12,7 +13,6 @@ class QuestionsController < ApplicationController
 
   # GET /questions/new
   def new
-    @quiz = Quiz.find params[:quiz_id]
     @question = Question.new score: 1
   end
 
@@ -22,8 +22,6 @@ class QuestionsController < ApplicationController
 
   # POST /questions or /questions.json
   def create
-    @quiz = Quiz.find params[:quiz_id]
-
     @question = Question.new(question_params)
     @question.quiz = @quiz
     @question.user = current_user
@@ -66,6 +64,10 @@ class QuestionsController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_question
       @question = Question.find(params[:id])
+    end
+
+    def set_quiz
+      @quiz = Quiz.find_by! permalink: params[:quiz_id]
     end
 
     # Only allow a list of trusted parameters through.

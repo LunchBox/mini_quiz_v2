@@ -50,11 +50,13 @@ class AttemptsController < ApplicationController
     @attempt.start_at = Time.now
     @attempt.gen_auth_code
 
-    @quiz.questions.each do |q|
+    questions = @quiz.random_questions ? @quiz.questions.shuffle : @quiz.questions
+
+    questions.each_with_index do |q, idx|
       aa = @attempt.attempt_answers.build
       aa.question = q
+      aa.seq = idx
     end
-
 
     respond_to do |format|
       if @attempt.save

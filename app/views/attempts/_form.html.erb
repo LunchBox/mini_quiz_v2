@@ -20,6 +20,7 @@
     <div class="my-4" id="question-list">
       <% idx = 0 %>
       <% attempt_answers = @quiz.random_questions ? @attempt.attempt_answers.shuffle : @attempt.attempt_answers %>
+      <% attempt_answers = @attempt.attempt_answers.by_seq %>
       <%= f.simple_fields_for :attempt_answers, attempt_answers, wrapper:false do |aaf| %>
         <% question = aaf.object.question %>
         <div class="">
