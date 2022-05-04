@@ -17,6 +17,10 @@ class Quiz < ApplicationRecord
     self.permalink
   end
 
+  def published?
+    !self.published_at.blank?
+  end
+
 	before_save :make_permalink
 	def make_permalink
 		return unless self.permalink.blank?
@@ -31,7 +35,7 @@ class Quiz < ApplicationRecord
 		ActiveRecord::Base.transaction do
 			new_quiz = self.dup
 			new_quiz.title += " [clone: #{(0...8).map { ('a'..'z').to_a[rand(26)] }.join}]"
-			new_quiz.available = false
+			new_quiz.published_at = nil
 
 			self.questions.each do |question|
 				new_question = question.dup

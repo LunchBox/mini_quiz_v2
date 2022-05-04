@@ -6,7 +6,7 @@
 
 <h1>
   <%= @quiz %>
-  [<%= @quiz.available? ? "Available" : "Unavailable" %>]
+  [<%= @quiz.published? ? "Published" : "Private" %>]
 </h1>
 
 
@@ -28,8 +28,8 @@
 <% I18n.with_options(scope: 'activerecord.attributes.quiz') do |i18n| %>
   <table>
     <tr>
-      <th><%= i18n.t :available %></th>
-      <td class="text-center"><%= '✔' if @quiz.available %></td>
+      <th><%= i18n.t :published %></th>
+      <td class="text-center"><%= '✔' if @quiz.published? %></td>
     </tr>
     <tr>
       <th><%= i18n.t :permalink %></th>

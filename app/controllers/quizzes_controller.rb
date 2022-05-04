@@ -82,7 +82,7 @@ class QuizzesController < ApplicationController
         :desc, 
         :calc_type, 
         :pre_notice, 
-        :available, 
+        :published_at, 
         :anonymous, 
         :result_viewable,
         :shuffle_options, 

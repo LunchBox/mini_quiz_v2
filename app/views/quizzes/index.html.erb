@@ -10,7 +10,7 @@
   <table>
     <thead>
       <tr>
-        <th><%= i18n.t :available %></th>
+        <th><%= i18n.t :published %></th>
         <th><%= i18n.t :anonymous %></th>
         <th><%= i18n.t :title %></th>
         <th>Created By</th>
@@ -22,7 +22,7 @@
       <% @quizzes.each do |quiz| %>
         <tr>
           <td class="text-center">
-            <%= '✔' if quiz.available %>
+            <%= '✔' if quiz.published? %>
           </td>
           <td class="text-center">
             <%= '✔' if quiz.anonymous %>

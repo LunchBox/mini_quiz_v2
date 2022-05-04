@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_05_04_112426) do
+ActiveRecord::Schema.define(version: 2022_05_04_115310) do
 
   create_table "attempt_answers", force: :cascade do |t|
     t.integer "attempt_id", null: false
@@ -65,7 +65,6 @@ ActiveRecord::Schema.define(version: 2022_05_04_112426) do
     t.string "title"
     t.text "desc"
     t.text "pre_notice"
-    t.boolean "available", default: false
     t.boolean "shuffle_questions", default: false
     t.boolean "shuffle_options", default: false
     t.string "calc_type"
@@ -78,6 +77,7 @@ ActiveRecord::Schema.define(version: 2022_05_04_112426) do
     t.boolean "on_schedule", default: false
     t.datetime "start_at", precision: 6
     t.datetime "end_at", precision: 6
+    t.datetime "published_at", precision: 6
     t.index ["user_id"], name: "index_quizzes_on_user_id"
   end
 

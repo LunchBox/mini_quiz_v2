@@ -21,7 +21,7 @@ class AttemptsController < ApplicationController
   # GET /attempts/new
   def new
 		respond_to do |format|
-			if @quiz.available?
+			if @quiz.published?
 				@attempt = Attempt.new
 				@attempt.quiz = @quiz
 
