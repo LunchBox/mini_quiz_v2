@@ -1,0 +1,36 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+@layer base {
+  h1 {
+    @apply text-2xl font-medium my-4;
+  }
+  h2 {
+    @apply text-xl font-medium my-4;
+  }
+  h3 {
+    @apply text-base font-medium my-4;
+  }
+}
+
+@layer components {
+
+}
+
+.btn-group {
+  @apply my-2;
+}
+
+.btn {
+  @apply py-1 px-2 border rounded text-sm inline-flex;
+}
+.btn:hover {
+  @apply border-slate-500;
+}
+
+
+label.boolean {
+  @apply flex items-center;
+}

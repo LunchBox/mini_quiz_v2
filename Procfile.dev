@@ -1,3 +1,4 @@
 web: bin/rails server -p 7008 -b 172.18.17.2
 js: yarn build --watch
 css: yarn build:css --watch
+css: bin/rails tailwindcss:watch

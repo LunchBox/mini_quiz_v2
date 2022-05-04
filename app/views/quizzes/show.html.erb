@@ -12,32 +12,35 @@
   <%= link_to 'Attempt Quiz', [:new, @quiz, :attempt], class: "btn btn-default"  %>
 </div>
 
+
+<table>
 <% I18n.with_options(scope: 'activerecord.attributes.quiz') do |i18n| %>
-  <dl>
-    <dt><%= i18n.t :calc_type %></dt>
-    <dd><%= @quiz.calc_type.blank? ? "full_match" : @quiz.calc_type %></dd>
-  </dl>
-  <dl>
-    <dt><%= i18n.t :desc %></dt>
-    <dd><%= simple_format @quiz.desc %></dd>
-  </dl>
-  <dl>
-    <dt><%= i18n.t :pre_notice %></dt>
-    <dd><%= simple_format @quiz.pre_notice %></dd>
-  </dl>
-  <dl>
-    <dt><%= i18n.t :random_questions %></dt>
-    <dd><%= @quiz.random_questions %></dd>
-  </dl>
-  <dl>
-    <dt><%= i18n.t :random_options %></dt>
-    <dd><%= @quiz.random_options %></dd>
-  </dl>
-  <dl>
-    <dt><%= i18n.t :available %></dt>
-    <dd><%= @quiz.available %></dd>
-  </dl>
+  <tr>
+    <th><%= i18n.t :calc_type %></th>
+    <td><%= @quiz.calc_type.blank? ? "full_match" : @quiz.calc_type %></td>
+  </tr>
+  <tr>
+    <th><%= i18n.t :desc %></th>
+    <td><%= simple_format @quiz.desc %></td>
+  </tr>
+  <tr>
+    <th><%= i18n.t :pre_notice %></th>
+    <td><%= simple_format @quiz.pre_notice %></td>
+  </tr>
+  <tr>
+    <th><%= i18n.t :random_questions %></th>
+    <td><%= @quiz.random_questions %></td>
+  </tr>
+  <tr>
+    <th><%= i18n.t :random_options %></th>
+    <td><%= @quiz.random_options %></td>
+  </tr>
+  <tr>
+    <th><%= i18n.t :available %></th>
+    <td><%= @quiz.available %></td>
+  </tr>
 <% end %>
+</table>
 
 <h2>Questions (<%= @quiz.questions.size %>)</h2>
 
