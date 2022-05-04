@@ -50,6 +50,9 @@ zh-HK:
         available: 公佈
         anonymous: 允許匿名參加
         result_viewable: 允許參加者查看結果
+        on_schedule: 按設定時間進行  
+        start_at: 開始時間
+        end_at: 結束時間
       attempt:
         name: 姓名
         start_at: 開始時間

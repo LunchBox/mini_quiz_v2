@@ -64,6 +64,18 @@
       <td class="text-center"><%= '✔' if @quiz.result_viewable %></td>
     </tr>
     <tr>
+      <th><%= i18n.t :on_schedule %></th>
+      <td class="text-center"><%= '✔' if @quiz.on_schedule %></td>
+    </tr>
+    <tr>
+      <th><%= i18n.t :start_at %></th>
+      <td><%= @quiz.start_at %></td>
+    </tr>
+    <tr>
+      <th><%= i18n.t :end_at %></th>
+      <td><%= @quiz.end_at %></td>
+    </tr>
+    <tr>
       <th><%= i18n.t :desc %></th>
       <td><%= simple_format @quiz.desc %></td>
     </tr>

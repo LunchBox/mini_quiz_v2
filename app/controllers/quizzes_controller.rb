@@ -86,7 +86,10 @@ class QuizzesController < ApplicationController
         :anonymous, 
         :result_viewable,
         :shuffle_options, 
-        :shuffle_questions
+        :shuffle_questions,
+        :on_schedule,
+        :start_at,
+        :end_at
       )
     end
 end
