@@ -49,7 +49,7 @@ class Attempt < ApplicationRecord
     self.auth_code = (0...8).map { CODE_RANGE[rand(CODE_RANGE_SIZE)] }.join
   end
 
-  def clear_auth_code!
+  def submit!
     self.auth_code = nil
     self.end_at = Time.now
     self.save!

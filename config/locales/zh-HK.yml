@@ -46,6 +46,7 @@ zh-HK:
         random_options: 題目中的選項亂序 
         available: 公佈
         anonymous: 允許匿名參加
+        result_viewable: 允許參加者查看結果
       attempt:
         name: 姓名
         start_at: 開始時間

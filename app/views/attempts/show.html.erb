@@ -1,4 +1,6 @@
-<%= link_to "Back to Quiz", @attempt.quiz %>
+<% if user_signed_in? %>
+  <%= link_to "Back to Quiz", @attempt.quiz %>
+<% end %>
 
 <p id="notice"><%= notice %></p>
 

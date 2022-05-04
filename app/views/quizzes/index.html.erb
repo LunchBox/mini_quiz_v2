@@ -11,6 +11,7 @@
     <thead>
       <tr>
         <th><%= i18n.t :available %></th>
+        <th><%= i18n.t :anonymous %></th>
         <th><%= i18n.t :title %></th>
         <th>Created By</th>
         <th>Created At</th>
@@ -22,6 +23,9 @@
         <tr>
           <td class="text-center">
             <%= '✔' if quiz.available %>
+          </td>
+          <td class="text-center">
+            <%= '✔' if quiz.anonymous %>
           </td>
           <td>
             <%= link_to quiz %>

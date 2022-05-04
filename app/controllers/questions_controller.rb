@@ -13,7 +13,7 @@ class QuestionsController < ApplicationController
   # GET /questions/new
   def new
     @quiz = Quiz.find params[:quiz_id]
-    @question = Question.new
+    @question = Question.new score: 1
   end
 
   # GET /questions/1/edit

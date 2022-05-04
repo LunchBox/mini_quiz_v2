@@ -1,6 +1,6 @@
 class AttemptsController < ApplicationController
   before_action :set_attempt, only: %i[ show edit update destroy ]
-	skip_before_action :authenticate_user!, only: [:new, :create, :edit, :update, :notice, :unavailable]
+	skip_before_action :authenticate_user!, only: [:show, :new, :create, :edit, :update, :notice, :unavailable]
 
   layout "blank", except: [:index, :destroy]
 
@@ -12,6 +12,9 @@ class AttemptsController < ApplicationController
 
   # GET /attempts/1 or /attempts/1.json
   def show
+    unless @attempt.quiz.result_viewable
+      authenticate_user!
+    end
   end
 
   # GET /attempts/new
@@ -74,8 +77,9 @@ class AttemptsController < ApplicationController
   def update
 		respond_to do |format|
 			if @attempt.valid_auth_code?(params[:auth_code]) and @attempt.update(attempt_params)
-				@attempt.clear_auth_code!
-				format.html { redirect_to [:notice, :attempts], notice: 'Attempt was successfully updated.' }
+				@attempt.submit!
+        target = @attempt.quiz.result_viewable ? @attempt : [:notice, :attempts]
+				format.html { redirect_to target, notice: 'Attempt was successfully updated.' }
 				format.json { render :show, status: :ok, location: @attempt }
 			else
 				format.html { render :edit }

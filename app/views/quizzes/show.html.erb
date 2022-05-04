@@ -43,6 +43,10 @@
       <th><%= i18n.t :anonymous %></th>
       <td class="text-center"><%= '✔' if @quiz.anonymous %></td>
     </tr>
+    <tr>
+      <th><%= i18n.t :result_viewable %></th>
+      <td class="text-center"><%= '✔' if @quiz.result_viewable %></td>
+    </tr>
   </table>
 <% end %>
 

@@ -64,7 +64,7 @@
 
     <div class="actions">
       <%= hidden_field_tag :auth_code, params[:auth_code] %>
-      <%= f.submit "提交所有答案 Submit", class: "btn btn-primary", data: { confirm: '提交答案後無法再修改，確定提交所有答案嗎？' } %>
+      <%= f.submit "提交所有答案", class: "btn btn-primary", data: { turbo_confirm: '提交答案後無法再修改，確定提交所有答案嗎？' } %>
     </div>
   <% end %>
 
