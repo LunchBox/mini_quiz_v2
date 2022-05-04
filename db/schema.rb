@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_05_04_040123) do
+ActiveRecord::Schema.define(version: 2022_05_04_061843) do
 
   create_table "attempt_answers", force: :cascade do |t|
     t.integer "attempt_id", null: false
@@ -40,10 +40,6 @@ ActiveRecord::Schema.define(version: 2022_05_04_040123) do
   create_table "question_options", force: :cascade do |t|
     t.integer "question_id", null: false
     t.string "content"
-    t.string "image_file_name"
-    t.string "image_content_type"
-    t.integer "image_file_size"
-    t.datetime "image_updated_at", precision: 6
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["question_id"], name: "index_question_options_on_question_id"
@@ -56,10 +52,6 @@ ActiveRecord::Schema.define(version: 2022_05_04_040123) do
     t.text "desc"
     t.string "correct_options"
     t.integer "score", default: 0
-    t.string "image_file_name"
-    t.string "image_content_type"
-    t.integer "image_file_size"
-    t.datetime "image_updated_at", precision: 6
     t.boolean "fixed_options", default: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false

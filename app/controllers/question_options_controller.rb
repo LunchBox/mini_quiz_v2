@@ -68,6 +68,6 @@ class QuestionOptionsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def question_option_params
-      params.fetch(:question_option, {}).permit(:content, :image)
+      params.fetch(:question_option, {}).permit(:content)
     end
 end

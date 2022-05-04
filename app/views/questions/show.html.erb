@@ -5,12 +5,6 @@
 
 <h1><%= @question.subject %></h1>
 
-<% if @question.image? %>
-  <div style="margin-left: 4rem;">
-    <%= image_tag @question.image.url, style: "max-width: 100%;" %>
-  </div>
-  <%= link_to "Delete Image", [@question, clear_image: true], method: :put, data: {confirm: "Are you sure?"}  %>
-<% end %>
 
 <div>
   <%= simple_format @question.desc %>
@@ -30,12 +24,6 @@
         <%= qo.content %> -
         <%= link_to 'Edit', [:edit, qo] %> &middot;
         <%= link_to 'Del', qo, data: { turbo_method: :delete, turbo_confirm: 'Are you sure?' } %>
-
-        <% if qo.image? %>
-          <div style="margin-left: 4rem;">
-            <%= image_tag qo.image.url, style: "max-width: 100%;" %>
-          </div>
-        <% end %>
       </div>
     <% end %>
   </div>

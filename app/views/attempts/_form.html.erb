@@ -29,11 +29,6 @@
           </h3>
           <div>
             <%= simple_format question.desc %>
-            <% if question.image? %>
-              <div style="margin-left: 4rem;">
-                <%= image_tag question.image.url, style: "max-width: 100%;" %>
-              </div>
-            <% end %>
           </div>
 
           <% options = (@quiz.random_options and !question.fixed_options) ? question.question_options.shuffle : question.question_options %>
@@ -49,12 +44,6 @@
 
                 <%= qo.content %>
               </div>
-
-              <% if qo.image? %>
-                <div>
-                  <%= image_tag qo.image.url, style: "max-width: 100%;" %>
-                </div>
-              <% end %>
             </label>
           <% end %>
           <%= aaf.hidden_field :question_id %>

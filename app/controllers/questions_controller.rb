@@ -70,6 +70,6 @@ class QuestionsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def question_params
-      params.fetch(:question, {}).permit(:subject, :score, :fixed_options, :image, :desc, :batch_options, {correct_options: []})
+      params.fetch(:question, {}).permit(:subject, :score, :fixed_options, :desc, :batch_options, {correct_options: []})
     end
 end
