@@ -13,11 +13,14 @@
 
   <body>
     <% if user_signed_in? %>
-      <header class="row" style="display: flex; margin-top: 1rem ;">
-        <%= link_to "Quizzes", :root, style: "flex: 1 0 auto;" %>
+      <header class="px-4 py-2 bg-slate-100">
+        <%= link_to "Quizzes", :root, class: "mr-2" %>
         <%= link_to "Sign out", destroy_user_session_path, :method => :delete %>
       </header>
     <% end %>
-    <%= yield %>
+
+    <div class="m-4">
+      <%= yield %>
+    </div>
   </body>
 </html>
