@@ -1,11 +1,14 @@
 class AttemptsController < ApplicationController
+  include Pagy::Backend
+
   before_action :set_quiz, only: %i[ index new create ]
   before_action :set_attempt, only: %i[ show edit update destroy ]
 	skip_before_action :authenticate_user!, only: [:show, :new, :create, :edit, :update, :notice, :unavailable]
 
   # GET /attempts or /attempts.json
   def index
-    @attempts = Attempt.rank @quiz.attempts
+    # @attempts = Attempt.rank @quiz.attempts
+    @pagy, @attempts = pagy(@quiz.attempts)
   end
 
   # GET /attempts/1 or /attempts/1.json

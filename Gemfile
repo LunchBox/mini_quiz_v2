@@ -86,3 +86,5 @@ gem 'rails-i18n', '~> 7.0.0'
 gem 'rails_state_machine'
 
 gem "tailwindcss-rails", "~> 2.0"
+
+gem 'pagy', '~> 5.10'
