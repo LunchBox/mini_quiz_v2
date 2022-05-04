@@ -11,6 +11,7 @@
   <%= link_to 'Clone', [:clone, @quiz], data: { turbo_method: :post, turbo_confirm: "Are you sure?" }, class: "btn btn-default" %>
   <%= link_to "Add New Question", [:new, @quiz, :question], class: "btn btn-default" %>
   <%= link_to 'Attempt Quiz', [:new, @quiz, :attempt], class: "btn btn-default"  %>
+  <%= link_to 'Moniter', [:moniter, @quiz], class: "btn btn-default"  %>
 </div>
 
 
@@ -91,8 +92,6 @@
   <%= link_to 'Attempt Quiz', [:new, @quiz, :attempt], class: "btn btn-default"  %>
 </div>
 
-<%= turbo_stream_from dom_id(@quiz, :attempts) %>
-
 
 <% I18n.with_options(scope: 'activerecord.attributes.attempt') do |i18n| %>
   <table>
@@ -106,11 +105,18 @@
         <th></th>
       </tr>
     </thead>
-    <%= turbo_frame_tag "attempt_list" do %>
-      <tbody id="attempt_list_real">
-        <%= render attempts %>
-      </tbody>
-    <% end %>
+    <tbody>
+      <% attempts.each do |attempt| %>
+        <tr>
+          <td><%= link_to attempt, nil, data: { turbo_frame: "_top" } %></td>
+          <td><%= attempt.start_at.strftime("%Y-%m-%d %H:%M:%S") if attempt.start_at %></td>
+          <td><%= attempt.end_at.strftime("%Y-%m-%d %H:%M:%S") if attempt.end_at %></td>
+          <td><%= attempt.formatted_diff %></td>
+          <td><%= attempt.formatted_score %></td>
+          <td><%= link_to 'Destroy', attempt, class: "btn", data: { turbo_method: :delete, turbo_confirm: 'Are you sure?' } %></td>
+        </tr>
+      <% end %>
+    </tbody>
   </table>
 <% end %>
 

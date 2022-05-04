@@ -27,7 +27,7 @@ class Attempt < ApplicationRecord
   validates :name, presence: true
 
   # scope :by_default, -> {order("score desc, time_diff asc")}
-  broadcasts_to ->(attempt) { "attempts_quiz_#{attempt.quiz_id}" }, target: "attempt_list_real"
+  broadcasts_to ->(attempt) { "attempts_quiz_#{attempt.quiz_id}" } #, target: "attempt_list_real"
 
   def to_s
     self.name

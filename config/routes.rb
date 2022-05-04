@@ -18,6 +18,7 @@ Rails.application.routes.draw do
   resources :quizzes do
     member do
       post :clone
+      get :moniter
     end
     resources :questions
     resources :attempts
