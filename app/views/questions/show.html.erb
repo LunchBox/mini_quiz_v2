@@ -22,25 +22,26 @@
 
 
 <%= simple_form_for @question do |f| %>
-  <% @question.question_options.each_with_index do |qo, idx| %>
-    <div>
-      <%= f.check_box :correct_options, {:multiple => true}, qo.id.to_s, nil %>
-      <span style="font-family: monospace;"><%= "ABCDEFGHIJK"[idx] %>.</span>
-      <%= qo.content %> -
-      <%= link_to 'Edit', [:edit, qo] %> &middot;
-      <%= link_to 'Del', qo, data: { turbo_method: :delete, turbo_confirm: 'Are you sure?' } %>
+  <div class="my-4">
+    <% @question.question_options.each_with_index do |qo, idx| %>
+      <div>
+        <%= f.check_box :correct_options, {:multiple => true}, qo.id.to_s, nil %>
+        <span style="font-family: monospace;"><%= "ABCDEFGHIJK"[idx] %>.</span>
+        <%= qo.content %> -
+        <%= link_to 'Edit', [:edit, qo] %> &middot;
+        <%= link_to 'Del', qo, data: { turbo_method: :delete, turbo_confirm: 'Are you sure?' } %>
 
-      <% if qo.image? %>
-        <div style="margin-left: 4rem;">
-          <%= image_tag qo.image.url, style: "max-width: 100%;" %>
-        </div>
-      <% end %>
-    </div>
-  <% end %>
+        <% if qo.image? %>
+          <div style="margin-left: 4rem;">
+            <%= image_tag qo.image.url, style: "max-width: 100%;" %>
+          </div>
+        <% end %>
+      </div>
+    <% end %>
+  </div>
 
   <div class="actions">
     <%= f.submit "Update Correct Options", class: "btn btn-default" %>
-
   </div>
 <% end %>
 

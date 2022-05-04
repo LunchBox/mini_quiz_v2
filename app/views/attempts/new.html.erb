@@ -1,8 +1,10 @@
 <h1><%= @quiz %></h1>
 
-<div>
-  <%= simple_format @quiz.pre_notice %>
-</div>
+<% unless @quiz.pre_notice.blank? %>
+  <div class="my-4 p-4 bg-slate-200">
+    <%= simple_format @quiz.pre_notice %>
+  </div>
+<% end %>
 
 <%= render "form", attempt: @attempt %>
 

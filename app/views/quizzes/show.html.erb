@@ -29,15 +29,19 @@
     </tr>
     <tr>
       <th><%= i18n.t :random_questions %></th>
-      <td><%= @quiz.random_questions %></td>
+      <td class="text-center"><%= '✔' if @quiz.random_questions %></td>
     </tr>
     <tr>
       <th><%= i18n.t :random_options %></th>
-      <td><%= @quiz.random_options %></td>
+      <td class="text-center"><%= '✔' if @quiz.random_options %></td>
     </tr>
     <tr>
       <th><%= i18n.t :available %></th>
-      <td><%= @quiz.available %></td>
+      <td class="text-center"><%= '✔' if @quiz.available %></td>
+    </tr>
+    <tr>
+      <th><%= i18n.t :anonymous %></th>
+      <td class="text-center"><%= '✔' if @quiz.anonymous %></td>
     </tr>
   </table>
 <% end %>

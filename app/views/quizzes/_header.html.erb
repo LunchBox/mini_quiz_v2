@@ -1,5 +1,7 @@
 <h1><%= quiz %></h1>
 
-<div>
+<% unless quiz.desc.blank? %>
+  <div class="my-4 p-4 bg-slate-200">
     <%= simple_format quiz.desc %>
-</div>
+  </div>
+<% end %>

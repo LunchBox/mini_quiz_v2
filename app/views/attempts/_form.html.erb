@@ -8,7 +8,11 @@
   </div>
 
   <% if @attempt.new_record? %>
-    <%= f.input :name, label: "姓名 Name" %>
+    <% if @quiz and @quiz.anonymous %>
+      <%= f.hidden_field :name, value: "Anonymous" %>
+    <% else %>
+      <%= f.input :name, label: "姓名 Name" %>
+    <% end %>
     <div class="actions">
       <%= f.submit "開始 Start", class: "btn btn-primary" %>
     </div>

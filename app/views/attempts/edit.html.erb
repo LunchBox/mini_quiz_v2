@@ -1,5 +1,14 @@
-<%= render 'quizzes/header', quiz: @quiz %>
+<h1><%= @quiz %></h1>
 
-Participant: <%= @attempt.name %> <br/>
+<div class="my-2">
+  Participant: <%= @attempt.name %>
+</div>
+
+<% unless @quiz.desc.blank? %>
+  <div class="my-4 p-4 bg-slate-200">
+    <%= simple_format @quiz.desc %>
+  </div>
+<% end %>
+
 
 <%= render 'form' %>

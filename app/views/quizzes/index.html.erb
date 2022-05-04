@@ -6,32 +6,38 @@
   <%= link_to "New quiz", new_quiz_path, class: "btn" %>
 </div>
 
-<table>
-  <thead>
-    <tr>
-      <th>Quiz</th>
-      <th>Created By</th>
-      <th>Created At</th>
-      <th>Updated At</th>
-    </tr>
-  </thead>
-  <tbody>
-    <% @quizzes.each do |quiz| %>
+<% I18n.with_options(scope: 'activerecord.attributes.quiz') do |i18n| %>
+  <table>
+    <thead>
       <tr>
-        <td>
-          <%= link_to quiz %>
-        </td>
-        <td>
-          <%= quiz.user %>
-        </td>
-        <td>
-          <%= quiz.created_at %>
-        </td>
-        <td>
-          <%= quiz.updated_at %>
-        </td>
+        <th><%= i18n.t :available %></th>
+        <th><%= i18n.t :title %></th>
+        <th>Created By</th>
+        <th>Created At</th>
+        <th>Updated At</th>
       </tr>
-    <% end %>
-  </tbody>
-</table>
+    </thead>
+    <tbody>
+      <% @quizzes.each do |quiz| %>
+        <tr>
+          <td class="text-center">
+            <%= '✔' if quiz.available %>
+          </td>
+          <td>
+            <%= link_to quiz %>
+          </td>
+          <td>
+            <%= quiz.user %>
+          </td>
+          <td>
+            <%= quiz.created_at %>
+          </td>
+          <td>
+            <%= quiz.updated_at %>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
 
+<% end %>

@@ -35,6 +35,7 @@ zh-HK:
   activerecord:
     models: 
       quiz: 測驗
+      question: 題目
     attributes:
       quiz:
         title: 標題
@@ -44,6 +45,7 @@ zh-HK:
         random_questions: 題目亂序
         random_options: 題目中的選項亂序 
         available: 公佈
+        anonymous: 允許匿名參加
       attempt:
         name: 姓名
         start_at: 開始時間
@@ -51,4 +53,11 @@ zh-HK:
         duration: 用時
         result: 成績
         scores: 成績
+      question:
+        subject: 題目標題
+        score: 分數
+        fixed_options: 固定選項次序
+        image: 圖片
+        desc: 簡介
+        batch_options: 選項列表（每個選項一行）
 
