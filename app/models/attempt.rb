@@ -1,22 +1,17 @@
 class Attempt < ApplicationRecord
-  include RailsStateMachine::Model
+  include AASM
 
-  state_machine do
+  aasm do
     state :pending, initial: true
-    state :preparing
     state :answering
     state :submitted
 
-    event :prepare do
-      transitions from: [:pending], to: :preparing
+    event :start, before_transaction: :mark_start do
+      transitions from: [:pending], to: :answering
     end
 
-    event :start do
-      transitions from: [:pending, :preparing], to: :answering
-    end
-
-    event :submit do
-      transitions from: :answering, to: :submitted
+    event :submit, before_transaction: :mark_submitted do
+      transitions from: [:answering], to: :submitted
     end
   end
 
@@ -37,6 +32,27 @@ class Attempt < ApplicationRecord
     self.permalink
   end
 
+  before_create :generate_quiz_sheet
+  def generate_quiz_sheet
+    quiz = self.quiz
+
+    questions = quiz.shuffle_questions ? quiz.questions.shuffle : quiz.questions.by_seq
+
+    questions.each_with_index do |q, idx|
+      aa = self.attempt_answers.build
+      aa.question = q
+      aa.seq = idx
+    end
+  end
+
+  def mark_start
+    self.start_at = Time.now
+  end
+
+  def mark_submitted
+    self.end_at = Time.now
+  end
+
 	before_save :make_permalink
 	def make_permalink
 		return unless self.permalink.blank?
@@ -51,10 +67,6 @@ class Attempt < ApplicationRecord
     attempts.sort_by{|att| [-att.calc_score[:score], att.time_diff.blank? ? 999999999 : att.time_diff ]}
   end
 
-  def submit!
-    self.end_at = Time.now
-    self.save!
-  end
 
   before_save :record_time_diff
   def record_time_diff
@@ -62,12 +74,6 @@ class Attempt < ApplicationRecord
       self.time_diff = self.end_at - self.start_at
     end
   end
-
-  # before_save :record_score
-  # def record_score
-  #     res = self.calc_score
-  #     self.score = res[:score]
-  # end
 
   def formatted_diff
     if self.end_at and self.start_at
@@ -87,26 +93,6 @@ class Attempt < ApplicationRecord
         s += res
       end
     end
-
-    # case self.quiz.calc_type
-    # when "part_match"
-    #     self.attempt_answers.each do |aa|
-    #         next if aa.question.correct_options.blank?
-    #         next if aa.selected_options.blank?
-
-    #         if (aa.question.correct_options | aa.selected_options) == aa.question.correct_options
-    #             correct_count += 1
-    #             s += ((aa.selected_options.size.to_f / aa.question.correct_options.size) * aa.question.score).round(2)
-    #         end
-    #     end
-    # else
-    #     self.attempt_answers.each do |aa|
-    #         if aa.selected_options == aa.question.correct_options
-    #             correct_count += 1
-    #             s += aa.question.score
-    #         end
-    #     end
-    # end
 
     {correct_count: correct_count, score: s}
   end

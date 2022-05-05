@@ -1,6 +1,8 @@
 GEM
   remote: https://rubygems.org/
   specs:
+    aasm (5.2.0)
+      concurrent-ruby (~> 1.0)
     actioncable (7.0.0)
       actionpack (= 7.0.0)
       activesupport (= 7.0.0)
@@ -151,8 +153,6 @@ GEM
     rails-i18n (7.0.3)
       i18n (>= 0.7, < 2)
       railties (>= 6.0.0, < 8)
-    rails_state_machine (2.1.1)
-      activerecord
     railties (7.0.0)
       actionpack (= 7.0.0)
       activesupport (= 7.0.0)
@@ -217,6 +217,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  aasm
   bootsnap
   capybara
   cssbundling-rails
@@ -228,7 +229,6 @@ DEPENDENCIES
   puma (~> 5.0)
   rails (~> 7.0.0)
   rails-i18n (~> 7.0.0)
-  rails_state_machine
   redis (~> 4.0)
   selenium-webdriver
   simple_form (~> 5.1.0)

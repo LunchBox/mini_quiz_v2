@@ -54,18 +54,19 @@ class AttemptsController < ApplicationController
   def create
     @attempt = Attempt.new(attempt_params)
     @attempt.quiz = @quiz
-    @attempt.start_at = Time.now
+    # @attempt.start_at = Time.now
 
-    questions = @quiz.shuffle_questions ? @quiz.questions.shuffle : @quiz.questions.by_seq
+    # questions = @quiz.shuffle_questions ? @quiz.questions.shuffle : @quiz.questions.by_seq
 
-    questions.each_with_index do |q, idx|
-      aa = @attempt.attempt_answers.build
-      aa.question = q
-      aa.seq = idx
-    end
+    # questions.each_with_index do |q, idx|
+    #   aa = @attempt.attempt_answers.build
+    #   aa.question = q
+    #   aa.seq = idx
+    # end
 
     respond_to do |format|
       if @attempt.save
+        @attempt.start!
         format.html { redirect_to [:edit, @attempt], notice: "Attempt was successfully created." }
         format.json { render :show, status: :created, location: @attempt }
       else
