@@ -12,6 +12,9 @@
       <tr>
         <th><%= i18n.t :published %></th>
         <th><%= i18n.t :anonymous %></th>
+        <th><%= i18n.t :on_schedule %></th>
+        <th><%= i18n.t :question, scope: "activerecord.models" %></th>
+        <th><%= i18n.t :attempt, scope: "activerecord.models" %></th>
         <th><%= i18n.t :title %></th>
         <th>Created By</th>
         <th>Created At</th>
@@ -26,6 +29,15 @@
           </td>
           <td class="text-center">
             <%= '✔' if quiz.anonymous %>
+          </td>
+          <td class="text-center">
+            <%= '✔' if quiz.on_schedule %>
+          </td>
+          <td class="text-center">
+            <%= quiz.questions.size %>
+          </td>
+          <td class="text-center">
+            <%= quiz.attempts.size %>
           </td>
           <td>
             <%= link_to quiz %>

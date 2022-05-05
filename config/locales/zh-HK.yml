@@ -36,6 +36,7 @@ zh-HK:
     models: 
       quiz: 測驗
       question: 題目
+      attempt: 參加
     attributes:
       quiz:
         permalink: Permalink
@@ -48,11 +49,14 @@ zh-HK:
         shuffle_questions: 題目亂序
         shuffle_options: 題目中的選項亂序 
         published: 公佈
-        anonymous: 允許匿名參加
+        anonymous: 匿名
         result_viewable: 允許參加者查看結果
-        on_schedule: 按設定時間進行  
+        on_schedule: 定時
         start_at: 開始時間
         end_at: 結束時間
+        user: 創建者
+        created_at: 創建時間
+        updated_at: 更新時間
       attempt:
         name: 姓名
         start_at: 開始時間

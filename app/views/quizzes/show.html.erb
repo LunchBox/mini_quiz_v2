@@ -5,8 +5,8 @@
 <p style="color: green"><%= notice %></p>
 
 <h1>
-  <%= @quiz %>
   [<%= @quiz.published? ? "Published" : "Private" %>]
+  <%= @quiz %>
 </h1>
 
 
@@ -14,7 +14,7 @@
   <%= link_to 'Edit', edit_quiz_path(@quiz), class: "btn btn-default" %>
   <%= link_to "Questions: #{@quiz.questions.size}", [@quiz, :questions], class: "btn btn-default" %>
   <%= link_to "Attempts: #{@quiz.attempts.size}", [@quiz, :attempts], class: "btn btn-default" %>
-  <%= link_to 'Moniter', [:moniter, @quiz], class: "btn btn-default"  %>
+  <%= link_to 'Moniter', [:moniter, @quiz], class: "btn btn-default" if @quiz.on_schedule  %>
   <%= link_to 'Clone', [:clone, @quiz], data: { turbo_method: :post, turbo_confirm: "Are you sure?" }, class: "btn btn-default" %>
   <%= link_to "Add New Question", [:new, @quiz, :question], class: "btn btn-default" %>
   <%= link_to 'Attempt Quiz', attempt_to_path(@quiz), class: "btn btn-default"  %>
@@ -28,10 +28,6 @@
 <% I18n.with_options(scope: 'activerecord.attributes.quiz') do |i18n| %>
   <table>
     <tr>
-      <th><%= i18n.t :published %></th>
-      <td class="text-center"><%= '✔' if @quiz.published? %></td>
-    </tr>
-    <tr>
       <th><%= i18n.t :permalink %></th>
       <td><%= @quiz.permalink %></td>
     </tr>
@@ -40,41 +36,35 @@
       <td><%= t(@quiz.calc_type.blank? ? "full_match" : @quiz.calc_type, scope: 'activerecord.attributes.quiz') %></td>
     </tr>
     <tr>
-      <th><%= i18n.t :desc %></th>
-      <td><%= simple_format @quiz.desc %></td>
-    </tr>
-    <tr>
-      <th><%= i18n.t :pre_notice %></th>
-      <td><%= simple_format @quiz.pre_notice %></td>
-    </tr>
-    <tr>
       <th><%= i18n.t :shuffle_questions %></th>
-      <td class="text-center"><%= '✔' if @quiz.shuffle_questions %></td>
+      <td><%= '✔' if @quiz.shuffle_questions %></td>
     </tr>
     <tr>
       <th><%= i18n.t :shuffle_options %></th>
-      <td class="text-center"><%= '✔' if @quiz.shuffle_options %></td>
+      <td><%= '✔' if @quiz.shuffle_options %></td>
     </tr>
     <tr>
       <th><%= i18n.t :anonymous %></th>
-      <td class="text-center"><%= '✔' if @quiz.anonymous %></td>
+      <td><%= '✔' if @quiz.anonymous %></td>
     </tr>
     <tr>
       <th><%= i18n.t :result_viewable %></th>
-      <td class="text-center"><%= '✔' if @quiz.result_viewable %></td>
+      <td><%= '✔' if @quiz.result_viewable %></td>
     </tr>
-    <tr>
-      <th><%= i18n.t :on_schedule %></th>
-      <td class="text-center"><%= '✔' if @quiz.on_schedule %></td>
-    </tr>
-    <tr>
-      <th><%= i18n.t :start_at %></th>
-      <td><%= @quiz.start_at %></td>
-    </tr>
-    <tr>
-      <th><%= i18n.t :end_at %></th>
-      <td><%= @quiz.end_at %></td>
-    </tr>
+    <% if @quiz.on_schedule %>
+      <tr>
+        <th><%= i18n.t :on_schedule %></th>
+        <td><%= '✔' if @quiz.on_schedule %></td>
+      </tr>
+      <tr>
+        <th><%= i18n.t :start_at %></th>
+        <td><%= @quiz.start_at %></td>
+      </tr>
+      <tr>
+        <th><%= i18n.t :end_at %></th>
+        <td><%= @quiz.end_at %></td>
+      </tr>
+    <% end %>
     <tr>
       <th><%= i18n.t :desc %></th>
       <td><%= simple_format @quiz.desc %></td>
@@ -82,6 +72,18 @@
     <tr>
       <th><%= i18n.t :pre_notice %></th>
       <td><%= simple_format @quiz.pre_notice %></td>
+    </tr>
+    <tr>
+      <th><%= i18n.t :user %></th>
+      <td><%= @quiz.user %></td>
+    </tr>
+    <tr>
+      <th><%= i18n.t :created_at %></th>
+      <td><%= @quiz.created_at %></td>
+    </tr>
+    <tr>
+      <th><%= i18n.t :updated_at %></th>
+      <td><%= @quiz.updated_at %></td>
     </tr>
   </table>
 <% end %>
