@@ -26,6 +26,7 @@ Rails.application.routes.draw do
     member do
       post :clone
       get :moniter
+      post :clear_attempts
     end
     resources :questions
     resources :attempts

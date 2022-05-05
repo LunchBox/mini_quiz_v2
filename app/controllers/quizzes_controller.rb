@@ -1,5 +1,5 @@
 class QuizzesController < ApplicationController
-  before_action :set_quiz, only: %i[ show moniter edit update destroy ]
+  before_action :set_quiz, only: %i[ show moniter clone clear_attempts edit update destroy ]
 
   # GET /quizzes or /quizzes.json
   def index
@@ -50,11 +50,19 @@ class QuizzesController < ApplicationController
   end
 
   def clone
-    target = Quiz.find params[:id]
+    target = @quiz
     @quiz = target.deep_clone!
 
     respond_to do |format|
       format.html { redirect_to [:edit, @quiz], notice: 'Quiz was successfully cloned.' }
+    end
+  end
+
+  def clear_attempts
+    @quiz.attempts.destroy_all
+
+    respond_to do |format|
+      format.html { redirect_to [@quiz, :attempts], notice: 'Quiz was successfully cloned.' }
     end
   end
 

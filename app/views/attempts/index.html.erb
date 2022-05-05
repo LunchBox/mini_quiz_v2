@@ -6,6 +6,7 @@
 
 <h1>Attempts (<%= @attempts.size %>)</h1>
 
+
 <%== pagy_nav(@pagy) if @pagy %>
 
 <% I18n.with_options(scope: 'activerecord.attributes.attempt') do |i18n| %>
@@ -36,3 +37,9 @@
 <% end %>
 
 <%== pagy_nav(@pagy) if @pagy %>
+
+
+<h3 class="mt-96">Danger Zone</h3>
+<div class="btn-group">
+  <%= link_to 'Delete All', [:clear_attempts, @quiz], data: { turbo_method: :post, turbo_confirm: "Are you sure?" }, class: "btn btn-default" %>
+</div>
