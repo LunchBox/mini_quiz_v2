@@ -21,6 +21,7 @@ class Quiz < ApplicationRecord
     !self.published_at.blank? and self.published_at < Time.now
   end
 
+
 	before_save :make_permalink
 	def make_permalink
 		return unless self.permalink.blank?

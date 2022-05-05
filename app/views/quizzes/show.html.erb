@@ -5,9 +5,17 @@
 <p style="color: green"><%= notice %></p>
 
 <h1>
-  [<%= @quiz.published? ? "Published" : "Private" %>]
+  <% if @quiz.published_at %>
+    [<%= @quiz.published_at > Time.now ? "Will Publish" : "Published" %>]
+  <% else %>
+    [Private]
+  <% end %>
   <%= @quiz %>
 </h1>
+
+<div>
+  Publish at: <%= @quiz.published_at %>
+</div>
 
 
 <div class="btn-group">
