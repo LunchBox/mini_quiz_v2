@@ -1,7 +1,6 @@
 
 <div>
   &lt; <%= link_to @question.quiz, [@question.quiz, :questions] %>
-  &middot; <%= link_to "Add New Question", [:new, @question.quiz, :question] %>
 </div>
 
 <p id="notice"><%= notice %></p>
@@ -20,13 +19,11 @@
 <%= simple_form_for @question do |f| %>
   <div class="my-4">
     <% @question.question_options.each_with_index do |qo, idx| %>
-      <div>
+      <label class="flex items-center">
         <%= f.check_box :correct_options, {:multiple => true}, qo.id.to_s, nil %>
-        <span style="font-family: monospace;"><%= "ABCDEFGHIJK"[idx] %>.</span>
-        <%= qo.content %> -
-        <%= link_to 'Edit', [:edit, qo] %> &middot;
-        <%= link_to 'Del', qo, data: { turbo_method: :delete, turbo_confirm: 'Are you sure?' } %>
-      </div>
+        <span class="mx-2"><%= "ABCDEFGHIJK"[idx] %>.</span>
+        <%= qo.content %>
+      </label>
     <% end %>
   </div>
 
@@ -34,6 +31,17 @@
     <%= f.submit "Update Correct Options", class: "btn btn-default" %>
   </div>
 <% end %>
+
+<div class="my-4">
+<% @question.question_options.each_with_index do |qo, idx| %>
+  <div class="flex items-center">
+    <span class="mr-2"><%= "ABCDEFGHIJK"[idx] %>.</span>
+    <span class="mr-2"><%= qo.content %></span>
+    <%= link_to 'Edit', [:edit, qo], class: "btn mr-2" %>
+    <%= button_to 'Destroy', qo, class: "btn", method: :delete, form: {data: {turbo_confirm: "Are you sure?"}} %>
+  </div>
+<% end %>
+</div>
 
 <h2>Add Option</h2>
 <%= render "question_options/form", question_option: QuestionOption.new %>
