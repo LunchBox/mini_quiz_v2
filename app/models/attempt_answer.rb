@@ -4,25 +4,36 @@ class AttemptAnswer < ApplicationRecord
 
 	serialize :selected_options
 
+  attr_accessor :selected_option
+  def selected_option= val
+    self.selected_options = [val]
+  end
+
   scope :by_seq, -> { order seq: :asc }
 
 	def calc_score correct_options, calc_type, score
 		return if correct_options.blank?
 		return if self.selected_options.blank?
 
-    # 選了非答案的選項
-    return if (self.selected_options - correct_options).size > 0
+    if self.selected_options.is_a? Array
+      # 選了非答案的選項
+      return if (self.selected_options - correct_options).size > 0
 
-		case calc_type
-		when "part_match"
-			if (correct_options | self.selected_options) == correct_options
-				return ((self.selected_options.size.to_f / correct_options.size) * score).round(2)
-			end
-		else
-			if self.selected_options == correct_options
-				return score
-			end
-		end
+      case calc_type
+      when "part_match"
+        if (correct_options | self.selected_options) == correct_options
+          return ((self.selected_options.size.to_f / correct_options.size) * score).round(2)
+        end
+      else
+        if self.selected_options == correct_options
+          return score
+        end
+      end
+    else
+      if self.selected_options == correct_options
+        return score
+      end
+    end
 		nil
 	end
 

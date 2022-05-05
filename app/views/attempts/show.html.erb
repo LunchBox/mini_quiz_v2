@@ -60,7 +60,11 @@
       <div class="ml-4">
         <% question.question_options.each_with_index do |qo, jdx| %>
           <div>
-            <%= check_box_tag :attempt_answer, :selected_options, aa.selected_options.try(:"include?", qo.id.to_s), disabled: true %>
+            <% if question.single_answer? %>
+              <%= radio_button_tag :attempt_answer, :selected_options, aa.selected_options.try(:"include?", qo.id.to_s), disabled: true %>
+            <% else %>
+              <%= check_box_tag :attempt_answer, :selected_options, aa.selected_options.try(:"include?", qo.id.to_s), disabled: true %>
+            <% end %>
             <span style="font-family: monospace;"><%= "ABCDEFGHIJK"[jdx] %>.</span>
             <%= qo.content %>
             <%= '✔' if aa.question.correct_options.try(:"include?", qo.id.to_s) %>

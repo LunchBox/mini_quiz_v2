@@ -109,6 +109,6 @@ class AttemptsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def attempt_params
-      params.fetch(:attempt, {}).permit(:name, {attempt_answers_attributes: [:id, :question_id, {selected_options: []}]})
+      params.fetch(:attempt, {}).permit(:name, {attempt_answers_attributes: [:id, :question_id, :selected_option, selected_options: []]})
     end
 end
