@@ -2,8 +2,8 @@ Rails.application.routes.draw do
 	resources :attempt_answers
 
 
-  get "/a/:quiz_id", to: "attempts#new", as: :attempt_to
-  get "/a/:id/:auth_code", to: "attempts#edit", as: :attempt_with
+  get "/q/:quiz_id", to: "attempts#new", as: :attempt_to
+  get "/a/:id", to: "attempts#edit", as: :edit_attempt
   resources :attempts do
     collection do
       get :notice

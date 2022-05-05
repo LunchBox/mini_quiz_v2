@@ -12,7 +12,7 @@ class Attempt < ApplicationRecord
     end
 
     event :start do
-      transitions from: :preparing, to: :answering
+      transitions from: [:pending, :preparing], to: :answering
     end
 
     event :submit do
@@ -51,16 +51,7 @@ class Attempt < ApplicationRecord
     attempts.sort_by{|att| [-att.calc_score[:score], att.time_diff.blank? ? 999999999 : att.time_diff ]}
   end
 
-  def valid_auth_code? code
-    !code.blank? and code == self.auth_code
-  end
-
-  def gen_auth_code
-		self.auth_code = SecureRandom.urlsafe_base64(4)
-  end
-
   def submit!
-    self.auth_code = nil
     self.end_at = Time.now
     self.save!
   end

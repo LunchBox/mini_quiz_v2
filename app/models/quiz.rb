@@ -18,7 +18,7 @@ class Quiz < ApplicationRecord
   end
 
   def published?
-    !self.published_at.blank?
+    !self.published_at.blank? and self.published_at < Time.now
   end
 
 	before_save :make_permalink

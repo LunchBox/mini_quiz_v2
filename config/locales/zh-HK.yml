@@ -52,6 +52,7 @@ zh-HK:
         anonymous: 匿名
         result_viewable: 允許參加者查看結果
         on_schedule: 定時
+        on_schedule_hint: 測驗在設定的時間內才能參加
         start_at: 開始時間
         end_at: 結束時間
         user: 創建者

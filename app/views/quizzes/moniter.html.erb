@@ -1,7 +1,13 @@
-<%= render "quizzes/header", quiz: @quiz %>
+<div>
+  &lt; <%= link_to @quiz %>
+</div>
+
+<p style="color: green"><%= notice %></p>
+
+<h1><%= @quiz %></h1>
 
 <div class="btn-group">
-  <%= link_to 'Attempt Quiz', [:new, @quiz, :attempt], class: "btn btn-default"  %>
+  <%= link_to 'Attempt Quiz', attempt_to_path(@quiz), class: "btn btn-default"  %>
 </div>
 
 <%= turbo_stream_from dom_id(@quiz, :attempts) %>

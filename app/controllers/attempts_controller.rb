@@ -7,8 +7,12 @@ class AttemptsController < ApplicationController
 
   # GET /attempts or /attempts.json
   def index
-    # @attempts = Attempt.rank @quiz.attempts
-    @pagy, @attempts = pagy(@quiz.attempts)
+    if @quiz.on_schedule
+      @attempts = @quiz.attempts
+    else
+      # @attempts = Attempt.rank @quiz.attempts
+      @pagy, @attempts = pagy(@quiz.attempts)
+    end
   end
 
   # GET /attempts/1 or /attempts/1.json
@@ -38,7 +42,7 @@ class AttemptsController < ApplicationController
 		@quiz = @attempt.quiz
 
     respond_to do |format|
-      if @attempt.valid_auth_code?(params[:auth_code])
+      if !@attempt.submitted?
         format.html { render :edit }
       else
         format.html { redirect_to [:unavailable, :attempts] }
@@ -51,7 +55,6 @@ class AttemptsController < ApplicationController
     @attempt = Attempt.new(attempt_params)
     @attempt.quiz = @quiz
     @attempt.start_at = Time.now
-    @attempt.gen_auth_code
 
     questions = @quiz.shuffle_questions ? @quiz.questions.shuffle : @quiz.questions.by_seq
 
@@ -63,7 +66,7 @@ class AttemptsController < ApplicationController
 
     respond_to do |format|
       if @attempt.save
-        format.html { redirect_to attempt_with_path(@attempt, @attempt.auth_code), notice: "Attempt was successfully created." }
+        format.html { redirect_to [:edit, @attempt], notice: "Attempt was successfully created." }
         format.json { render :show, status: :created, location: @attempt }
       else
         format.html { render :new, status: :unprocessable_entity }
@@ -75,7 +78,7 @@ class AttemptsController < ApplicationController
   # PATCH/PUT /attempts/1 or /attempts/1.json
   def update
 		respond_to do |format|
-			if @attempt.valid_auth_code?(params[:auth_code]) and @attempt.update(attempt_params)
+			if @attempt.update(attempt_params)
 				@attempt.submit!
         target = @attempt.quiz.result_viewable ? @attempt : [:notice, :attempts]
 				format.html { redirect_to target, notice: 'Attempt was successfully updated.' }

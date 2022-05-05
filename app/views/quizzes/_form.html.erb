@@ -11,7 +11,7 @@
   <%= f.input :shuffle_options %>
   <%= f.input :anonymous %>
   <%= f.input :result_viewable %>
-  <%= f.input :on_schedule %>
+  <%= f.input :on_schedule, hint: t(:on_schedule_hint, scope: "activerecord.attributes.quiz") %>
   <%= f.input :start_at %>
   <%= f.input :end_at %>
 
