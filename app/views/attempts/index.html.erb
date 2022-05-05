@@ -29,7 +29,7 @@
           <td><%= attempt.end_at.strftime("%Y-%m-%d %H:%M:%S") if attempt.end_at %></td>
           <td><%= attempt.formatted_diff %></td>
           <td><%= attempt.formatted_score %></td>
-          <td><%= link_to 'Destroy', attempt, class: "btn", data: { turbo_method: :delete, turbo_confirm: 'Are you sure?' } %></td>
+          <td><%= button_to 'Destroy', attempt, class: "btn", method: :delete, form: { data: { turbo_confirm: 'Are you sure?' } } %></td>
         </tr>
       <% end %>
     </tbody>
@@ -41,5 +41,6 @@
 
 <h3 class="mt-96">Danger Zone</h3>
 <div class="btn-group">
-  <%= link_to 'Delete All', [:clear_attempts, @quiz], data: { turbo_method: :post, turbo_confirm: "Are you sure?" }, class: "btn btn-default" %>
+  <%= button_to 'Delete All', [:clear_attempts, @quiz], method: :post, form: { data: { turbo_confirm: "Are you sure?" } }, class: "btn" %>
+  <div>如果已有測試記錄，建議使用 <%= link_to "Clone", [:clone, @quiz], data: { turbo_method: :post, turbo_confirm: "Are you sure to clone [#{@quiz}]?" } %> 功能開一個新的測試而不是刪除舊的測試記錄</div>
 </div>
