@@ -89,7 +89,7 @@ class QuizzesController < ApplicationController
         :shuffle_questions,
         :on_schedule,
         :start_at,
-        :end_at
+        :duration
       )
     end
 end

@@ -32,6 +32,7 @@
 zh-HK:
   hello: "Hello world"
   Cancel: 取消
+  minutes: 分鐘
   activerecord:
     models: 
       quiz: 測驗
@@ -54,7 +55,7 @@ zh-HK:
         on_schedule: 定時
         on_schedule_hint: 測驗在設定的時間內才能參加
         start_at: 開始時間
-        end_at: 結束時間
+        duration: 限時
         user: 創建者
         created_at: 創建時間
         updated_at: 更新時間

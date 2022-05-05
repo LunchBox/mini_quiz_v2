@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_05_05_035139) do
+ActiveRecord::Schema.define(version: 2022_05_05_040838) do
 
   create_table "attempt_answers", force: :cascade do |t|
     t.integer "attempt_id", null: false
@@ -76,8 +76,8 @@ ActiveRecord::Schema.define(version: 2022_05_05_035139) do
     t.string "permalink"
     t.boolean "on_schedule", default: false
     t.datetime "start_at", precision: 6
-    t.datetime "end_at", precision: 6
     t.datetime "published_at", precision: 6
+    t.integer "duration", default: 90
     t.index ["user_id"], name: "index_quizzes_on_user_id"
   end
 

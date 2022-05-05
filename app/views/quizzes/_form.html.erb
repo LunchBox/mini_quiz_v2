@@ -13,8 +13,7 @@
   <%= f.input :result_viewable %>
   <%= f.input :on_schedule, hint: t(:on_schedule_hint, scope: "activerecord.attributes.quiz") %>
   <%= f.input :start_at %>
-  <%= f.input :end_at %>
-
+  <%= f.input :duration, hint: t(:minutes) %>
 
   <div class="ingredient__actions">
     <%= f.submit class: "btn" %>

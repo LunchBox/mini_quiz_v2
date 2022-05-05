@@ -25,13 +25,13 @@
       <% @quizzes.each do |quiz| %>
         <tr>
           <td class="text-center">
-            <%= '✔' if quiz.published? %>
+            <%= tick quiz.published? %>
           </td>
           <td class="text-center">
-            <%= '✔' if quiz.anonymous %>
+            <%= tick quiz.anonymous %>
           </td>
           <td class="text-center">
-            <%= '✔' if quiz.on_schedule %>
+            <%= tick quiz.on_schedule %>
           </td>
           <td class="text-center">
             <%= quiz.questions.size %>

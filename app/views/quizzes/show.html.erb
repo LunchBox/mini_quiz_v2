@@ -37,32 +37,32 @@
     </tr>
     <tr>
       <th><%= i18n.t :shuffle_questions %></th>
-      <td><%= '✔' if @quiz.shuffle_questions %></td>
+      <td><%= check @quiz.shuffle_questions %></td>
     </tr>
     <tr>
       <th><%= i18n.t :shuffle_options %></th>
-      <td><%= '✔' if @quiz.shuffle_options %></td>
+      <td><%= check @quiz.shuffle_options %></td>
     </tr>
     <tr>
       <th><%= i18n.t :anonymous %></th>
-      <td><%= '✔' if @quiz.anonymous %></td>
+      <td><%= check @quiz.anonymous %></td>
     </tr>
     <tr>
       <th><%= i18n.t :result_viewable %></th>
-      <td><%= '✔' if @quiz.result_viewable %></td>
+      <td><%= check @quiz.result_viewable %></td>
     </tr>
     <% if @quiz.on_schedule %>
       <tr>
         <th><%= i18n.t :on_schedule %></th>
-        <td><%= '✔' if @quiz.on_schedule %></td>
+        <td><%= check @quiz.on_schedule %></td>
       </tr>
       <tr>
         <th><%= i18n.t :start_at %></th>
         <td><%= @quiz.start_at %></td>
       </tr>
       <tr>
-        <th><%= i18n.t :end_at %></th>
-        <td><%= @quiz.end_at %></td>
+        <th><%= i18n.t :duration %></th>
+        <td><%= @quiz.duration %> <%= t :minutes %></td>
       </tr>
     <% end %>
     <tr>
