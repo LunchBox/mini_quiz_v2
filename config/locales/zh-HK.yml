@@ -37,6 +37,7 @@ zh-HK:
     models: 
       quiz: 測驗
       question: 題目
+      question_bank: 題庫
       attempt: 參加
     attributes:
       quiz:
@@ -68,6 +69,7 @@ zh-HK:
         duration: 用時
         result: 成績
         scores: 成績
+        questions: 題量
       question:
         subject: 題目標題
         score: 分數

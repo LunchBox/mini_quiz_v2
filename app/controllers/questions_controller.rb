@@ -4,7 +4,8 @@ class QuestionsController < ApplicationController
 
   # GET /questions or /questions.json
   def index
-    @questions = @quiz.questions.by_seq
+    # @questions = @quiz.questions.by_seq
+    @pagy, @questions = pagy @quiz.questions.by_seq
   end
 
   # GET /questions/1 or /questions/1.json
@@ -42,7 +43,7 @@ class QuestionsController < ApplicationController
     @question.move_higher
 
     respond_to do |format|
-      format.html { redirect_to [@quiz, :questions], notice: "Question was successfully updated." }
+      format.html { redirect_back fallback_location: [@quiz, :questions], notice: "Question was successfully updated." }
     end
   end
 
@@ -51,7 +52,7 @@ class QuestionsController < ApplicationController
     @question.move_lower
 
     respond_to do |format|
-      format.html { redirect_to [@quiz, :questions], notice: "Question was successfully updated." }
+      format.html { redirect_back fallback_location: [@quiz, :questions], notice: "Question was successfully updated." }
     end
   end
 

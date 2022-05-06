@@ -9,6 +9,7 @@
   <%= link_to '+ Question', [:new, @quiz, :question], class: "btn btn-default" %>
 </div>
 
+<%== pagy_nav(@pagy) if @pagy %>
 <table>
   <tr>
     <th></th>
@@ -46,6 +47,7 @@
     </tr>
   <% end %>
 </table>
+<%== pagy_nav(@pagy) if @pagy %>
 
 <h2>Import</h2>
 <%= form_with url: [:import, @quiz] do |f| %>

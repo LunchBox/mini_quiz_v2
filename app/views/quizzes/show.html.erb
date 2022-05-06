@@ -34,6 +34,14 @@
       <td><%= t(@quiz.calc_type.blank? ? "full_match" : @quiz.calc_type, scope: 'activerecord.attributes.quiz') %></td>
     </tr>
     <tr>
+      <th><%= i18n.t :random_questions %></th>
+      <td><%= check @quiz.random_questions %></td>
+    </tr>
+    <tr>
+      <th><%= i18n.t :random_questions_num %></th>
+      <td><%= @quiz.random_questions_num %> out of <%= @quiz.questions.size %></td>
+    </tr>
+    <tr>
       <th><%= i18n.t :shuffle_questions %></th>
       <td><%= check @quiz.shuffle_questions %></td>
     </tr>

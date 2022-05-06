@@ -16,6 +16,7 @@
         <th><%= i18n.t :end_at %></th>
         <th><%= i18n.t :duration %></th>
         <th><%= i18n.t :scores %></th>
+        <th><%= i18n.t :questions %></th>
         <th></th>
       </tr>
     </thead>
@@ -27,6 +28,7 @@
           <td><%= attempt.end_at.strftime("%Y-%m-%d %H:%M:%S") if attempt.end_at %></td>
           <td><%= attempt.formatted_duration %></td>
           <td><%= attempt.formatted_score %></td>
+          <td><%= attempt.attempt_answers.size %></td>
           <td><%= button_to 'Destroy', attempt, class: "btn", method: :delete, form: { data: { turbo_confirm: 'Are you sure?' } } %></td>
         </tr>
       <% end %>
