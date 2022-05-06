@@ -4,6 +4,8 @@
   <%= link_to "New quiz", new_quiz_path, class: "btn" %>
 </div>
 
+<%== pagy_nav(@pagy) if @pagy %>
+
 <% I18n.with_options(scope: 'activerecord.attributes.quiz') do |i18n| %>
   <table>
     <thead>
@@ -55,3 +57,5 @@
   </table>
 
 <% end %>
+
+<%== pagy_nav(@pagy) if @pagy %>

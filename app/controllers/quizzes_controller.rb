@@ -3,7 +3,8 @@ class QuizzesController < ApplicationController
 
   # GET /quizzes or /quizzes.json
   def index
-    @quizzes = Quiz.order id: :desc
+    # @quizzes = Quiz.order id: :desc
+    @pagy, @quizzes = pagy(Quiz.order id: :desc)
   end
 
   # GET /quizzes/1 or /quizzes/1.json

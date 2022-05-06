@@ -1,5 +1,4 @@
 class AttemptsController < ApplicationController
-  include Pagy::Backend
 
   before_action :set_quiz, only: %i[ index new create ]
   before_action :set_attempt, only: %i[ show edit update destroy ]
