@@ -88,3 +88,4 @@ gem "tailwindcss-rails", "~> 2.0"
 gem 'pagy', '~> 5.10'
 
 gem 'aasm'
+gem 'acts_as_list'

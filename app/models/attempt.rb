@@ -20,6 +20,7 @@ class Attempt < ApplicationRecord
   accepts_nested_attributes_for :attempt_answers
 
   validates :name, presence: true
+  validates_uniqueness_of :permalink
 
   # scope :by_default, -> {order("score desc, time_diff asc")}
   broadcasts_to ->(attempt) { "attempts_quiz_#{attempt.quiz_id}" } #, target: "attempt_list_real"

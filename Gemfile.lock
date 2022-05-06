@@ -62,6 +62,8 @@ GEM
       i18n (>= 1.6, < 2)
       minitest (>= 5.1)
       tzinfo (~> 2.0)
+    acts_as_list (1.0.4)
+      activerecord (>= 4.2)
     addressable (2.8.0)
       public_suffix (>= 2.0.2, < 5.0)
     bcrypt (3.1.17)
@@ -218,6 +220,7 @@ PLATFORMS
 
 DEPENDENCIES
   aasm
+  acts_as_list
   bootsnap
   capybara
   cssbundling-rails

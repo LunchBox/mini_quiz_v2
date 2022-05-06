@@ -38,21 +38,8 @@ class QuestionsController < ApplicationController
   end
 
   def up
-    @quiz = @question.quiz
-    questions = @quiz.questions.by_seq.to_a
-    idx = questions.index @question
-
-    if idx > 0
-      begin
-        ActiveRecord::Base.transaction do
-          questions.insert(idx - 1, questions.delete_at(idx))
-          questions.each_with_index do |q, index|
-            q.update! seq: index
-          end
-        end
-      # rescue
-      end
-    end
+    @question.quiz.reset_questions_seq
+    @question.move_higher
 
     respond_to do |format|
       format.html { redirect_to [@quiz, :questions], notice: "Question was successfully updated." }
@@ -60,21 +47,8 @@ class QuestionsController < ApplicationController
   end
 
   def down
-    @quiz = @question.quiz
-    questions = @quiz.questions.by_seq.to_a
-    idx = questions.index @question
-
-    if idx < questions.size - 1
-      begin
-        ActiveRecord::Base.transaction do
-          questions.insert(idx + 1, questions.delete_at(idx))
-          questions.each_with_index do |q, index|
-            q.update! seq: index
-          end
-        end
-      # rescue
-      end
-    end
+    @question.quiz.reset_questions_seq
+    @question.move_lower
 
     respond_to do |format|
       format.html { redirect_to [@quiz, :questions], notice: "Question was successfully updated." }

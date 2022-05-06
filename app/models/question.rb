@@ -16,6 +16,8 @@ class Question < ApplicationRecord
   
   scope :by_seq, -> { order "seq asc, id desc"}
 
+  acts_as_list column: :seq, scope: :quiz
+
 	def to_s
     self.subject
 	end

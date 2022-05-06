@@ -6,6 +6,7 @@ class Quiz < ApplicationRecord
 	has_many :attempts, dependent: :destroy
 
 	validates :title, presence: true, uniqueness: true
+  validates_uniqueness_of :permalink
 
 	CALC_TYPES = ["full_match", "part_match"]
 
@@ -15,6 +16,12 @@ class Quiz < ApplicationRecord
 
   def to_param
     self.permalink
+  end
+
+  def reset_questions_seq
+    self.questions.by_seq.each_with_index do |q, i|
+      q.update seq: i
+    end
   end
 
 	before_save :make_permalink
