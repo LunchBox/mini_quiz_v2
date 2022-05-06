@@ -18,7 +18,7 @@
       <td><%= attempt.start_at.strftime("%Y-%m-%d %H:%M:%S") if attempt.start_at %></td>
       <td><%= attempt.end_at.strftime("%Y-%m-%d %H:%M:%S") if attempt.end_at %></td>
       <td>
-        <%= attempt.formatted_diff %>
+        <%= attempt.formatted_duration %>
       </td>
       <td><%= attempt.formatted_score %></td>
       <td><%= link_to 'Destroy', attempt, data: { turbo_method: :delete, turbo_confirm: 'Are you sure?' } %></td>

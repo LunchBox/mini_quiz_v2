@@ -23,7 +23,7 @@
     <% if @attempt.start_at and @attempt.end_at %>
       <tr>
         <th><%= i18n.t :duration %></th>
-        <td><%= @attempt.formatted_diff %></td>
+        <td><%= @attempt.formatted_duration %></td>
       </tr>
     <% end %>
 

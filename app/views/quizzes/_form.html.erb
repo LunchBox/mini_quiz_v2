@@ -14,6 +14,9 @@
   <%= f.input :on_schedule, hint: t(:on_schedule_hint, scope: "activerecord.attributes.quiz") %>
   <%= f.input :start_at %>
   <%= f.input :duration, hint: t(:minutes) %>
+  <%= f.input :random_questions %>
+  <%= f.input :random_questions_num %>
+
 
   <div class="ingredient__actions">
     <%= f.submit class: "btn" %>

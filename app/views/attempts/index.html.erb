@@ -25,7 +25,7 @@
           <td><%= link_to attempt, nil, data: { turbo_frame: "_top" } %></td>
           <td><%= attempt.start_at.strftime("%Y-%m-%d %H:%M:%S") if attempt.start_at %></td>
           <td><%= attempt.end_at.strftime("%Y-%m-%d %H:%M:%S") if attempt.end_at %></td>
-          <td><%= attempt.formatted_diff %></td>
+          <td><%= attempt.formatted_duration %></td>
           <td><%= attempt.formatted_score %></td>
           <td><%= button_to 'Destroy', attempt, class: "btn", method: :delete, form: { data: { turbo_confirm: 'Are you sure?' } } %></td>
         </tr>

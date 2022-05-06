@@ -37,7 +37,11 @@ class Attempt < ApplicationRecord
   def generate_quiz_sheet
     quiz = self.quiz
 
-    questions = quiz.shuffle_questions ? quiz.questions.shuffle : quiz.questions.by_seq
+    if quiz.random_questions
+      questions = quiz.questions.shuffle.slice(0, quiz.random_questions_num)
+    else
+      questions = quiz.shuffle_questions ? quiz.questions.shuffle : quiz.questions.by_seq
+    end
 
     questions.each_with_index do |q, idx|
       aa = self.attempt_answers.build
@@ -76,7 +80,7 @@ class Attempt < ApplicationRecord
     end
   end
 
-  def formatted_diff
+  def formatted_duration
     if self.end_at and self.start_at
       df = self.end_at - self.start_at
       df > 60 ? "#{df.to_i / 60} mins #{(df % 60).round} sec" : "#{(df % 60).round} sec"
@@ -101,7 +105,9 @@ class Attempt < ApplicationRecord
   def formatted_score
     res = self.calc_score
 
-    "#{res[:correct_count]} / #{self.quiz.questions.size}; score: #{res[:score]}"
+    total = self.attempt_answers.size
+
+    "#{res[:correct_count]} / #{total}; score: #{res[:score]}"
   end
 
 end

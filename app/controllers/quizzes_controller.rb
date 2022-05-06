@@ -135,7 +135,9 @@ class QuizzesController < ApplicationController
         :shuffle_questions,
         :on_schedule,
         :start_at,
-        :duration
+        :duration,
+        :random_questions,
+        :random_questions_num
       )
     end
 end
