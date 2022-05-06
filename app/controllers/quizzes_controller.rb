@@ -1,5 +1,5 @@
 class QuizzesController < ApplicationController
-  before_action :set_quiz, only: %i[ show moniter clone clear_attempts edit update import destroy ]
+  before_action :set_quiz, only: %i[ show moniter clone clear_attempts clear_questions edit update import destroy ]
 
   # GET /quizzes or /quizzes.json
   def index
@@ -62,10 +62,18 @@ class QuizzesController < ApplicationController
     @quiz.attempts.destroy_all
 
     respond_to do |format|
-      format.html { redirect_to [@quiz, :attempts], notice: 'Quiz was successfully cloned.' }
+      format.html { redirect_to [@quiz, :attempts], notice: 'Attempts have been cleared.' }
     end
   end
 
+  def clear_questions
+    @quiz.questions.destroy_all
+    @quiz.attempts.destroy_all
+
+    respond_to do |format|
+      format.html { redirect_to [@quiz, :questions], notice: 'Questions have been cleared.' }
+    end
+  end
 
 	def import
 		xlsx = Roo::Spreadsheet.open params[:excel].tempfile

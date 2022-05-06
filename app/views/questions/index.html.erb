@@ -13,10 +13,8 @@
   <tr>
     <th></th>
     <th></th>
-    <th>Question Name</th>
-    <th>Options</th>
-    <th>Correct</th>
     <th>Score</th>
+    <th>Question</th>
     <th></th>
   </tr>
   <% @questions.each_with_index do |question, idx| %>
@@ -26,13 +24,23 @@
         <%= link_to "Up", [:up, question], data: { turbo_method: :put }, class: "btn" %>
         <%= link_to "Down", [:down, question], data: { turbo_method: :put }, class: "btn" %>
       </td>
-      <td><%= link_to question %></td>
-      <td><%= question.question_options.size %></td>
-      <td><%= question.correct_options.try :size %></td>
       <td><%= question.score %></td>
-      <td class="flex">
-        <%= link_to 'Edit', [:edit, question], class: "btn mr-2" %>
-        <%= button_to 'Destroy', question, method: :delete, class: "btn", data: { turbo_confirm: 'Are you sure?' } %>
+      <td>
+        <div><%= question %></div>
+        <ul class="pl-4">
+          <% question.question_options.each_with_index do |qo, idx| %>
+            <li>
+              <span class="mr-2"><%= "ABCDEFGHIJK"[idx] %>.</span>
+              <span class="<%= 'font-bold text-lime-600' if question.correct_options.include?(qo.id.to_s) %>"><%= qo.content %></span>
+            </li>
+          <% end%>
+        </ul>
+      </td>
+      <td>
+        <div class="flex">
+          <%= link_to 'Edit', [:edit, question], class: "btn mr-2" %>
+          <%= button_to 'Destroy', question, method: :delete, class: "btn", form: {data: {turbo_confirm: 'Are you sure?'}} %>
+        </div>
       </td>
     </tr>
   <% end %>
@@ -43,3 +51,9 @@
   <%= f.file_field :excel %>
   <%= f.submit "Import", class: "btn" %>
 <% end %>
+
+<h3 class="mt-96">Danger Zone</h3>
+<div class="btn-group">
+  <%= button_to 'Delete All', [:clear_questions, @quiz], method: :post, form: { data: { turbo_confirm: "Are you sure?" } }, class: "btn" %>
+  <div>刪除所有 Questions 將同時刪除所有的 Attempts，請慎重使用，如果已有測試記錄，建議使用 <%= link_to "Clone", [:clone, @quiz], data: { turbo_method: :post, turbo_confirm: "Are you sure to clone [#{@quiz}]?" } %> 功能</div>
+</div>
