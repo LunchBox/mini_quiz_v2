@@ -1,0 +1,48 @@
+
+<%= simple_form_for(@attempt_answer, remote: true) do |f| %>
+  <div class="my-4" id="question-list">
+    <h3 class="content">
+      <%= @step %>.
+      <%= @question.subject %>
+    </h3>
+
+    <div>
+      <%= simple_format @question.desc %>
+    </div>
+
+    <% options = (@quiz.shuffle_options and !@question.fixed_options) ? @question.question_options.shuffle : @question.question_options %>
+    <% options.each_with_index do |qo, idx| %>
+      <label class="my-2 ml-8 hover:cursor-pointer">
+        <div class="flex items-center">
+          <% if @question.single_answer? %>
+            <%= f.radio_button :selected_option, qo.id.to_s, checked: f.object.selected_options.try(:"include?", qo.id.to_s), class: "mr-2" %>
+          <% else %>
+            <%= f.check_box :selected_options, { multiple: true, class: "mr-2" }, qo.id.to_s, checked: f.object.selected_options.try(:"include?", qo.id.to_s) %>
+          <% end %>
+
+          <span class="mr-2"><%= "ABCDEFGHIJK"[idx] %>.</span>
+
+          <%= qo.content %>
+        </div>
+      </label>
+    <% end %>
+
+    <div>
+      <%= link_to "prev", [:edit, @attempt, s: @step - 1], class: "btn" if @prev %>
+      <%= link_to "next", [:edit, @attempt, s: @step + 1], class: "btn" if @next %>
+      <%= f.submit "Save", class: "btn" %>
+    </div>
+    
+    <div class="actions">
+    </div>
+  </div>
+<% end %>
+
+<%= simple_form_for([@quiz, @attempt]) do |f| %>
+  <%= f.error_notification %>
+  <%= f.error_notification message: f.object.errors[:base].to_sentence if f.object.errors[:base].present? %>
+
+  <div class="actions">
+    <%= f.submit "提交所有答案", class: "btn btn-primary", data: { turbo_confirm: '提交答案後無法再修改，確定提交所有答案嗎？' } %>
+  </div>
+<% end %>

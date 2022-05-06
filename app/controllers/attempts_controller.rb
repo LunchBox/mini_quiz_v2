@@ -40,6 +40,16 @@ class AttemptsController < ApplicationController
   def edit
 		@quiz = @attempt.quiz
 
+    if @quiz.step_by_step
+      @step = params[:s].to_i
+
+      @attempt_answer = @attempt.attempt_answers[@step]
+      @question = @attempt_answer.question
+
+      @prev = @attempt.attempt_answers[@step - 1]
+      @next = @attempt.attempt_answers[@step + 1]
+    end
+
     respond_to do |format|
       if !@attempt.submitted?
         format.html { render :edit }
@@ -103,6 +113,6 @@ class AttemptsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def attempt_params
-      params.fetch(:attempt, {}).permit(:name, {attempt_answers_attributes: [:id, :question_id, :selected_option, selected_options: []]})
+      params.fetch(:attempt, {}).permit(:name, {attempt_answers_attributes: [:id, :selected_option, selected_options: []]})
     end
 end

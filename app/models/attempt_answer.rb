@@ -6,7 +6,11 @@ class AttemptAnswer < ApplicationRecord
 
   attr_accessor :selected_option
   def selected_option= val
-    self.selected_options = [val]
+    if val.blank?
+      self.selected_options = []
+    else
+      self.selected_options = [val.strip]
+    end
   end
 
   scope :by_seq, -> { order seq: :asc }

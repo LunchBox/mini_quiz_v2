@@ -1,4 +1,6 @@
 class AttemptAnswersController < ApplicationController
+	skip_before_action :authenticate_user!, only: [:update]
+
   before_action :set_attempt_answer, only: %i[ show edit update destroy ]
 
   # GET /attempt_answers or /attempt_answers.json
@@ -37,9 +39,10 @@ class AttemptAnswersController < ApplicationController
   # PATCH/PUT /attempt_answers/1 or /attempt_answers/1.json
   def update
     respond_to do |format|
-      if @attempt_answer.update(attempt_answer_params)
+      if !@attempt_answer.attempt.submitted? and @attempt_answer.update(attempt_answer_params)
         format.html { redirect_to attempt_answer_url(@attempt_answer), notice: "Attempt answer was successfully updated." }
         format.json { render :show, status: :ok, location: @attempt_answer }
+        format.turbo_stream
       else
         format.html { render :edit, status: :unprocessable_entity }
         format.json { render json: @attempt_answer.errors, status: :unprocessable_entity }
@@ -66,5 +69,6 @@ class AttemptAnswersController < ApplicationController
     # Only allow a list of trusted parameters through.
     def attempt_answer_params
       params.fetch(:attempt_answer, {})
+      params.require(:attempt_answer).permit(:selected_option, selected_options: [])
     end
 end

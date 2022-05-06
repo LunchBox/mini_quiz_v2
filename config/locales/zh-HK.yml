@@ -59,6 +59,7 @@ zh-HK:
         duration: 限時
         random_questions: 隨機抽取題目
         random_questions_num: 隨機抽取題目數量
+        step_by_step: 分步
         user: 創建者
         created_at: 創建時間
         updated_at: 更新時間

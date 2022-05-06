@@ -137,7 +137,8 @@ class QuizzesController < ApplicationController
         :start_at,
         :duration,
         :random_questions,
-        :random_questions_num
+        :random_questions_num,
+        :step_by_step
       )
     end
 end

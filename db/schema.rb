@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_05_06_041111) do
+ActiveRecord::Schema.define(version: 2022_05_06_074736) do
 
   create_table "attempt_answers", force: :cascade do |t|
     t.integer "attempt_id", null: false
@@ -81,6 +81,7 @@ ActiveRecord::Schema.define(version: 2022_05_06_041111) do
     t.boolean "published", default: false
     t.boolean "random_questions", default: false
     t.integer "random_questions_num", default: 10
+    t.boolean "step_by_step", default: false
     t.index ["user_id"], name: "index_quizzes_on_user_id"
   end
 

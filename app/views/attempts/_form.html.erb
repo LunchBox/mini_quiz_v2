@@ -1,71 +1,11 @@
 
-<%= simple_form_for([@quiz, @attempt]) do |f| %>
-  <%= f.error_notification %>
-  <%= f.error_notification message: f.object.errors[:base].to_sentence if f.object.errors[:base].present? %>
 
-  <% if @attempt.new_record? %>
-    <% if @quiz and @quiz.anonymous %>
-      <%= f.hidden_field :name, value: "Anonymous" %>
-    <% else %>
-      <%= f.input :name, label: "姓名 Name" %>
-    <% end %>
-    <div class="actions">
-      <%= f.submit "開始 Start", class: "btn btn-primary" %>
-    </div>
-  <% else %>
-    <div class="my-4" id="question-list">
-      <% idx = 0 %>
-      <% attempt_answers = @attempt.attempt_answers.by_seq %>
-      <%= f.simple_fields_for :attempt_answers, attempt_answers, wrapper:false do |aaf| %>
-        <% question = aaf.object.question %>
-        <div class="">
-          <h3 class="content">
-            <%= idx += 1 %>.
-            <%= question.subject %>
-          </h3>
-          <div>
-            <%= simple_format question.desc %>
-          </div>
-
-          <% options = (@quiz.shuffle_options and !question.fixed_options) ? question.question_options.shuffle : question.question_options %>
-          <% options.each_with_index do |qo, idx| %>
-            <label class="my-2 ml-8 hover:cursor-pointer">
-              <div class="flex items-center">
-                <% if question.single_answer? %>
-                  <%= aaf.radio_button :selected_option, qo.id.to_s, class: "mr-2" %>
-                <% else %>
-                  <%= aaf.check_box :selected_options, { multiple: true, class: "mr-2" }, qo.id.to_s, nil %>
-                <% end %>
-                <span class="mr-2"><%= "ABCDEFGHIJK"[idx] %>.</span>
-
-                <%= qo.content %>
-              </div>
-            </label>
-          <% end %>
-          <%= aaf.hidden_field :question_id %>
-        </div>
-      <% end %>
-    </div>
-
-    <div class="actions">
-      <%= f.submit "提交所有答案", class: "btn btn-primary", data: { turbo_confirm: '提交答案後無法再修改，確定提交所有答案嗎？' } %>
-    </div>
-  <% end %>
-
-
-
+<% if @attempt.new_record? %>
+  <%= render "form_pre_notice" %>
+<% elsif @quiz.step_by_step %>
+  <%= render "form_step" %>
+<% else %>
+  <%= render "form_single_form" %>
 <% end %>
-
-
-<script>
-  jQuery(document).ready(function($){
-
-    $('#question-list').paginathing({
-      perPage: 10,
-      limitPagination: false,
-      containerClass: 'panel-footer'
-    })
-  });
-</script>
 
 
