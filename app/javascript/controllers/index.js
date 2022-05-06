@@ -4,7 +4,10 @@
 
 import { application } from "./application"
 import Notification from 'stimulus-notification'
+import TextareaAutogrow from 'stimulus-textarea-autogrow'
 
 import HelloController from "./hello_controller"
 application.register("hello", HelloController)
 application.register('notification', Notification)
+application.register('textarea-autogrow', TextareaAutogrow)
+

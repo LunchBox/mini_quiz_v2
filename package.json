@@ -6,7 +6,8 @@
     "@hotwired/turbo-rails": "^7.1.1",
     "esbuild": "^0.14.38",
     "sass": "^1.51.0",
-    "stimulus-notification": "^2.0.0"
+    "stimulus-notification": "^2.0.0",
+    "stimulus-textarea-autogrow": "^4.0.0"
   },
   "scripts": {
     "build": "esbuild app/javascript/*.* --bundle --sourcemap --outdir=app/assets/builds",

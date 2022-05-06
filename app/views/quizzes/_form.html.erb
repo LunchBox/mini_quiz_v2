@@ -4,8 +4,8 @@
 
   <%= f.input :published %>
   <%= f.input :title %>
-  <%= f.input :desc %>
-  <%= f.input :pre_notice %>
+  <%= f.input :desc, input_html: {data: {controller: "textarea-autogrow"}} %>
+  <%= f.input :pre_notice, input_html: {data: {controller: "textarea-autogrow"}} %>
   <%= f.input :calc_type, collection: Quiz::CALC_TYPES.map{|ct| [t(ct, scope: "activerecord.attributes.quiz"), ct]} %>
   <%= f.input :shuffle_questions %>
   <%= f.input :shuffle_options %>

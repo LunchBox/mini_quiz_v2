@@ -7,8 +7,8 @@
     <%= f.input :subject %>
     <%= f.input :score %>
     <%= f.input :fixed_options %>
-    <%= f.input :desc %>
-    <%= f.input :batch_options, as: :text %>
+    <%= f.input :desc, input_html: {data: {controller: "textarea-autogrow"}} %>
+    <%= f.input :batch_options, as: :text, input_html: {data: {controller: "textarea-autogrow"}} %>
   </div>
 
   <div class="form-actions">
