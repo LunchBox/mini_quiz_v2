@@ -20,7 +20,7 @@
 
 <div class="my-4">
   <div>Attempt URL:</div>
-  <div><%= link_to url_for(attempt_to_url(@quiz)), attempt_to_url(@quiz) %></div>
+  <div class="<%= "line-through" unless @quiz.published %>"><%= link_to url_for(attempt_to_url(@quiz)), attempt_to_url(@quiz) %></div>
 </div>
 
 <% I18n.with_options(scope: 'activerecord.attributes.quiz') do |i18n| %>
@@ -99,5 +99,5 @@
 
 <h3 class="mt-96">Danger Zone</h3>
 <div class="btn-group">
-  <%= button_to 'Delete', @quiz, method: :delete, form: { data: { turbo_confirm: "Are you sure?" }}, class: "btn" %>
+  <%= button_to 'Delete', @quiz, method: :delete, form: { data: { turbo_confirm: "Are you sure?" }}, class: "btn btn__danger" %>
 </div>

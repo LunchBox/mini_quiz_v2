@@ -22,8 +22,12 @@
     <tr>
       <td><%= idx + 1 %></td>
       <td>
-        <%= link_to "Up", [:up, question], data: { turbo_method: :put }, class: "btn" %>
-        <%= link_to "Down", [:down, question], data: { turbo_method: :put }, class: "btn" %>
+        <%= link_to [:up, question], data: { turbo_method: :put }, class: "btn" do %>
+          &uarr;
+        <% end %>
+        <%= link_to [:down, question], data: { turbo_method: :put }, class: "btn" do %>
+          &darr;
+        <% end %>
       </td>
       <td><%= question.score %></td>
       <td>
@@ -57,6 +61,6 @@
 
 <h3 class="mt-96">Danger Zone</h3>
 <div class="btn-group">
-  <%= button_to 'Delete All', [:clear_questions, @quiz], method: :post, form: { data: { turbo_confirm: "Are you sure?" } }, class: "btn" %>
+  <%= button_to 'Delete All', [:clear_questions, @quiz], method: :post, form: { data: { turbo_confirm: "Are you sure?" } }, class: "btn btn__danger" %>
   <div>刪除所有 Questions 將同時刪除所有的 Attempts，請慎重使用，如果已有測試記錄，建議使用 <%= link_to "Clone", [:clone, @quiz], data: { turbo_method: :post, turbo_confirm: "Are you sure to clone [#{@quiz}]?" } %> 功能</div>
 </div>

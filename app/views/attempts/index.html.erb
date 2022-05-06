@@ -41,6 +41,6 @@
 
 <h3 class="mt-96">Danger Zone</h3>
 <div class="btn-group">
-  <%= button_to 'Delete All', [:clear_attempts, @quiz], method: :post, form: { data: { turbo_confirm: "Are you sure?" } }, class: "btn" %>
+  <%= button_to 'Delete All', [:clear_attempts, @quiz], method: :post, form: { data: { turbo_confirm: "Are you sure?" } }, class: "btn btn__danger" %>
   <div>如果已有測試記錄，建議使用 <%= link_to "Clone", [:clone, @quiz], data: { turbo_method: :post, turbo_confirm: "Are you sure to clone [#{@quiz}]?" } %> 功能開一個新的測試而不是刪除舊的測試記錄</div>
 </div>

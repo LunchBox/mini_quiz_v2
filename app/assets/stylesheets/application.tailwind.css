@@ -30,6 +30,10 @@
   @apply border-slate-500 cursor-pointer;
 }
 
+.btn__danger {
+  @apply text-red-600 font-bold hover:bg-red-600 hover:border-red-600 hover:text-white;
+}
+
 
 label.boolean {
   @apply inline-flex items-center hover:cursor-pointer;
