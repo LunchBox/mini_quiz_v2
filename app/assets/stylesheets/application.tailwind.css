@@ -24,7 +24,8 @@
 }
 
 .btn {
-  @apply py-1 px-2 border rounded text-sm inline-flex;
+  @apply py-1 px-2 border text-sm inline-flex;
+  margin: 1px;
 }
 .btn:hover {
   @apply border-slate-500 cursor-pointer;

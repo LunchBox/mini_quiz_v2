@@ -3,6 +3,13 @@
 <% if @attempt.new_record? %>
   <%= render "form_pre_notice" %>
 <% elsif @quiz.step_by_step %>
+
+  <div class="flex flex-wrap">
+    <% @attempt.attempt_answers.size.times do |i| %>
+      <%= link_to i + 1, [:edit, @attempt, s: i], class: "btn" %>
+    <% end %>
+  </div>
+
   <%= render "form_step" %>
 <% else %>
   <%= render "form_single_form" %>
