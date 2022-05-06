@@ -80,12 +80,17 @@ gem "devise", "~> 4.8"
 
 # gem 'paperclip'
 
-
 gem 'rails-i18n', '~> 7.0.0'
 
 gem "tailwindcss-rails", "~> 2.0"
 
+# pagination
 gem 'pagy', '~> 5.10'
 
 gem 'aasm'
+
+# for sortable question list
 gem 'acts_as_list'
+
+# for import from excel
+gem "roo", "~> 2.9.0"

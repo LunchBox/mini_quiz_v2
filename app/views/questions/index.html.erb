@@ -30,10 +30,16 @@
       <td><%= question.question_options.size %></td>
       <td><%= question.correct_options.try :size %></td>
       <td><%= question.score %></td>
-      <td>
-        <%= link_to 'Edit', [:edit, question], class: "btn" %>
-        <%= link_to 'Destroy', question, method: :delete, class: "btn", data: { confirm: 'Are you sure?' } %>
+      <td class="flex">
+        <%= link_to 'Edit', [:edit, question], class: "btn mr-2" %>
+        <%= button_to 'Destroy', question, method: :delete, class: "btn", data: { turbo_confirm: 'Are you sure?' } %>
       </td>
     </tr>
   <% end %>
 </table>
+
+<h2>Import</h2>
+<%= form_with url: [:import, @quiz] do |f| %>
+  <%= f.file_field :excel %>
+  <%= f.submit "Import", class: "btn" %>
+<% end %>

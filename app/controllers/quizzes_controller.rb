@@ -1,5 +1,5 @@
 class QuizzesController < ApplicationController
-  before_action :set_quiz, only: %i[ show moniter clone clear_attempts edit update destroy ]
+  before_action :set_quiz, only: %i[ show moniter clone clear_attempts edit update import destroy ]
 
   # GET /quizzes or /quizzes.json
   def index
@@ -65,6 +65,35 @@ class QuizzesController < ApplicationController
       format.html { redirect_to [@quiz, :attempts], notice: 'Quiz was successfully cloned.' }
     end
   end
+
+
+	def import
+		xlsx = Roo::Spreadsheet.open params[:excel].tempfile
+
+
+    ActiveRecord::Base.transaction do
+      xlsx.each_with_pagename do |name, sheet|
+        sheet.each_row_streaming(pad_cells: true, offset: 1) do |row|
+          fr = lambda {|col| row[col].value.try :strip}
+          question = @quiz.questions.new subject: fr.call(1)
+          question.question_options.build content: fr.call(3)
+          question.question_options.build content: fr.call(4)
+          question.question_options.build content: fr.call(5)
+          question.question_options.build content: fr.call(6)
+          question.user = current_user
+          question.score = 1
+          question.save!
+
+          question.correct_options = question.question_options.select{|qo| qo.content == fr.call(2)}.map(&:id).map(&:to_s)
+          question.save!
+        end
+      end
+		end
+
+    respond_to do |format|
+      format.html { redirect_to [@quiz, :questions], notice: 'questions imported.' }
+    end
+	end
 
 
   # DELETE /quizzes/1 or /quizzes/1.json
