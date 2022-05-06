@@ -4,6 +4,8 @@ class AttemptAnswer < ApplicationRecord
 
 	serialize :selected_options
 
+  scope :by_seq, -> { order seq: :asc }
+
   attr_accessor :selected_option
   def selected_option= val
     if val.blank?
@@ -13,7 +15,10 @@ class AttemptAnswer < ApplicationRecord
     end
   end
 
-  scope :by_seq, -> { order seq: :asc }
+  def has_answer?
+    self.selected_options.try(:size).to_i > 0
+  end
+
 
 	def calc_score correct_options, calc_type, score
 		return if correct_options.blank?

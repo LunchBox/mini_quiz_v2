@@ -5,8 +5,8 @@
 <% elsif @quiz.step_by_step %>
 
   <div class="flex flex-wrap">
-    <% @attempt.attempt_answers.size.times do |i| %>
-      <%= link_to i + 1, [:edit, @attempt, s: i], class: "btn" %>
+    <% @attempt.attempt_answers.each_with_index do |aa, i| %>
+      <%= link_to i + 1, [:edit, @attempt, s: i], class: "btn #{'bg-green-400' if aa.has_answer?}" %>
     <% end %>
   </div>
 
