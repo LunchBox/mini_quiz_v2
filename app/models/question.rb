@@ -34,8 +34,16 @@ class Question < ApplicationRecord
 		end
 	end
 
+  def no_answer?
+    self.correct_options.blank?
+  end
+
+  def has_answer?
+    !self.no_answer?
+  end
+
   def single_answer?
-    !self.correct_options.blank? && self.correct_options.size == 1
+    self.has_answer? and self.correct_options.size == 1
   end
 
   def correct? question_option

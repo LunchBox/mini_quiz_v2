@@ -9,6 +9,13 @@
   <%= link_to '+ Question', [:new, @quiz, :question], class: "btn btn-default" %>
 </div>
 
+<% no_answers = @quiz.questions.count &:no_answer? %>
+<% if no_answers > 0 %>
+  <div class="my-2 px-2 font-bold bg-red-500 text-white">
+    <%= no_answers%> questions has no answer.
+  </div>
+<% end %>
+
 <%== pagy_nav(@pagy) if @pagy %>
 <table>
   <tr>
