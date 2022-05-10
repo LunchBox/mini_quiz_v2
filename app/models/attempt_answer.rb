@@ -19,6 +19,9 @@ class AttemptAnswer < ApplicationRecord
     self.selected_options.try(:size).to_i > 0
   end
 
+  def selected? question_option
+    self.selected_options.try :include?, question_option.id.to_s
+  end
 
 	def calc_score correct_options, calc_type, score
 		return if correct_options.blank?

@@ -59,13 +59,13 @@
         <% question.question_options.each_with_index do |qo, jdx| %>
           <div>
             <% if question.single_answer? %>
-              <%= radio_button_tag :attempt_answer, :selected_options, aa.selected_options.try(:"include?", qo.id.to_s), disabled: true %>
+              <%= radio_button_tag :attempt_answer, :selected_options, aa.selected?(qo), disabled: true %>
             <% else %>
-              <%= check_box_tag :attempt_answer, :selected_options, aa.selected_options.try(:"include?", qo.id.to_s), disabled: true %>
+              <%= check_box_tag :attempt_answer, :selected_options, aa.selected?(qo), disabled: true %>
             <% end %>
             <span style="font-family: monospace;"><%= "ABCDEFGHIJK"[jdx] %>.</span>
             <%= qo.content %>
-            <%= '✔' if aa.question.correct_options.try(:"include?", qo.id.to_s) %>
+            <%= '✔' if aa.question.correct?(qo) %>
           </div>
         <% end %>
       </div>

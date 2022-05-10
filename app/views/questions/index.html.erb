@@ -36,7 +36,7 @@
           <% question.question_options.each_with_index do |qo, idx| %>
             <li>
               <span class="mr-2"><%= "ABCDEFGHIJK"[idx] %>.</span>
-              <span class="<%= 'font-bold text-lime-600' if question.correct_options.include?(qo.id.to_s) %>"><%= qo.content %></span>
+              <span class="<%= 'font-bold text-lime-600' if question.correct?(qo) %>"><%= qo.content %></span>
             </li>
           <% end%>
         </ul>

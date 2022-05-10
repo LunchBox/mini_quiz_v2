@@ -38,4 +38,8 @@ class Question < ApplicationRecord
     !self.correct_options.blank? && self.correct_options.size == 1
   end
 
+  def correct? question_option
+    self.correct_options.try :include?, question_option.id.to_s
+  end
+
 end

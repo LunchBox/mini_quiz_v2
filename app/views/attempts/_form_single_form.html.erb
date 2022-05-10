@@ -20,9 +20,9 @@
           <label class="my-2 ml-8 hover:cursor-pointer">
             <div class="flex items-center">
               <% if question.single_answer? %>
-                <%= aaf.radio_button :selected_option, qo.id.to_s, checked: aaf.object.selected_options.try(:"include?", qo.id.to_s), class: "mr-2" %>
+                <%= aaf.radio_button :selected_option, qo.id.to_s, checked: aaf.object.selected?(qo), class: "mr-2" %>
               <% else %>
-                <%= aaf.check_box :selected_options, { multiple: true, class: "mr-2" }, qo.id.to_s, checked: aaf.object.selected_options.try(:"include?", qo.id.to_s) %>
+                <%= aaf.check_box :selected_options, { multiple: true, class: "mr-2" }, qo.id.to_s, checked: aaf.object.selected?(qo) %>
               <% end %>
               <span class="mr-2"><%= "ABCDEFGHIJK"[idx] %>.</span>
 

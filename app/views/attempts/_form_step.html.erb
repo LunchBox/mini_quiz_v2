@@ -15,9 +15,9 @@
       <div class="my-2 ml-8">
         <label class="inline-flex items-center hover:cursor-pointer">
           <% if @question.single_answer? %>
-            <%= f.radio_button :selected_option, qo.id.to_s, checked: f.object.selected_options.try(:"include?", qo.id.to_s), class: "mr-2" %>
+            <%= f.radio_button :selected_option, qo.id.to_s, checked: f.object.selected?(qo), class: "mr-2" %>
           <% else %>
-            <%= f.check_box :selected_options, { multiple: true, class: "mr-2" }, qo.id.to_s, checked: f.object.selected_options.try(:"include?", qo.id.to_s) %>
+            <%= f.check_box :selected_options, { multiple: true, class: "mr-2" }, qo.id.to_s, checked: f.object.selected?(qo) %>
           <% end %>
 
           <span class="mr-2"><%= "ABCDEFGHIJK"[idx] %>.</span>
